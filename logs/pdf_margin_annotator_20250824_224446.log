@@ -1,0 +1,380 @@
+2025-08-24 22:44:46,607 - INFO - === PDF Margin Annotator Started ===
+2025-08-24 22:44:46,608 - INFO - Log file: logs/pdf_margin_annotator_20250824_224446.log
+2025-08-24 22:44:46,608 - INFO - Loading reference values from: margin_baseline_reference.txt
+2025-08-24 22:44:46,609 - INFO - Successfully loaded 20 reference values
+2025-08-24 22:44:46,610 - INFO - Found pair: 02-Exodus.pdf + 02-Exodus.xlsx -> 02-Exodus_annotated.pdf
+2025-08-24 22:44:46,610 - WARNING - PDF found but no matching Excel file: 02-Exodus_annotated.pdf (looking for 02-Exodus_annotated.xlsx)
+2025-08-24 22:44:46,610 - INFO - Found 1 file pair(s) to process
+2025-08-24 22:44:46,610 - INFO - === Processing 02-Exodus ===
+2025-08-24 22:44:46,611 - INFO - Excel: 02-Exodus.xlsx
+2025-08-24 22:44:46,611 - INFO - PDF: 02-Exodus.pdf
+2025-08-24 22:44:46,611 - INFO - Output: 02-Exodus_annotated.pdf
+2025-08-24 22:44:46,611 - INFO - Using center point: 3.766 inches
+2025-08-24 22:44:46,611 - INFO - Using page height: 9.25 inches
+2025-08-24 22:44:46,611 - INFO - Loading Excel file: 02-Exodus.xlsx
+2025-08-24 22:44:46,627 - INFO - Excel file loaded successfully
+2025-08-24 22:44:46,628 - INFO - Found RED cell: Page 1, Column 'Running Head Baseline (in)', Value: 7.16
+2025-08-24 22:44:46,628 - INFO - Added annotation #1: RED Running Head Baseline (in). Text is 7.16 inches from the top. Normally text is 1.129
+2025-08-24 22:44:46,629 - INFO - Found YELLOW cell: Page 3, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.444
+2025-08-24 22:44:46,629 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,630 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,630 - INFO - Added annotation #2: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.444 inches from the bottom. No reference available
+2025-08-24 22:44:46,630 - INFO - Found YELLOW cell: Page 3, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.444
+2025-08-24 22:44:46,631 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,631 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,631 - INFO - Added annotation #3: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.444 inches from the bottom. No reference available
+2025-08-24 22:44:46,632 - INFO - Found YELLOW cell: Page 3, Column 'Footnote Baseline (in)', Value: 1.011
+2025-08-24 22:44:46,632 - INFO - Added annotation #4: YELLOW Footnote Baseline (in). Text is 1.011 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,632 - INFO - Found YELLOW cell: Page 5, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,633 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,633 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,633 - INFO - Added annotation #5: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,633 - INFO - Found YELLOW cell: Page 5, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,633 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,634 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,634 - INFO - Added annotation #6: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,634 - INFO - Found YELLOW cell: Page 8, Column 'Footnote Baseline (in)', Value: 1.007
+2025-08-24 22:44:46,635 - INFO - Added annotation #7: YELLOW Footnote Baseline (in). Text is 1.007 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,635 - INFO - Found YELLOW cell: Page 10, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,635 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,636 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,636 - INFO - Added annotation #8: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,636 - INFO - Found YELLOW cell: Page 10, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,636 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,636 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,636 - INFO - Added annotation #9: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,637 - INFO - Found YELLOW cell: Page 13, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,637 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,637 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,638 - INFO - Added annotation #10: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,638 - INFO - Found YELLOW cell: Page 13, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,638 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,639 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,640 - INFO - Added annotation #11: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,641 - INFO - Found YELLOW cell: Page 14, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,642 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,643 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,643 - INFO - Added annotation #12: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,643 - INFO - Found YELLOW cell: Page 14, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,643 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,644 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,644 - INFO - Added annotation #13: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,644 - INFO - Found YELLOW cell: Page 15, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,644 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,645 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,645 - INFO - Added annotation #14: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,646 - INFO - Found YELLOW cell: Page 15, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,646 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,646 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,647 - INFO - Added annotation #15: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,647 - INFO - Found YELLOW cell: Page 19, Column 'Footnote Baseline (in)', Value: 1.007
+2025-08-24 22:44:46,648 - INFO - Added annotation #16: YELLOW Footnote Baseline (in). Text is 1.007 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,649 - INFO - Found YELLOW cell: Page 24, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.444
+2025-08-24 22:44:46,649 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,649 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,649 - INFO - Added annotation #17: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.444 inches from the bottom. No reference available
+2025-08-24 22:44:46,650 - INFO - Found YELLOW cell: Page 24, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.444
+2025-08-24 22:44:46,650 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,650 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,650 - INFO - Added annotation #18: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.444 inches from the bottom. No reference available
+2025-08-24 22:44:46,651 - INFO - Found YELLOW cell: Page 28, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,651 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,651 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,651 - INFO - Added annotation #19: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,652 - INFO - Found YELLOW cell: Page 28, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,652 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,652 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,652 - INFO - Added annotation #20: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,653 - INFO - Found YELLOW cell: Page 29, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,653 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,654 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,654 - INFO - Added annotation #21: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,654 - INFO - Found YELLOW cell: Page 29, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,655 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,655 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,655 - INFO - Added annotation #22: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,656 - INFO - Found YELLOW cell: Page 31, Column 'Footnote Baseline (in)', Value: 1.007
+2025-08-24 22:44:46,656 - INFO - Added annotation #23: YELLOW Footnote Baseline (in). Text is 1.007 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,657 - INFO - Found YELLOW cell: Page 32, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 3.194
+2025-08-24 22:44:46,657 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,657 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,657 - INFO - Added annotation #24: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 3.194 inches from the bottom. No reference available
+2025-08-24 22:44:46,658 - INFO - Found YELLOW cell: Page 32, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 3.194
+2025-08-24 22:44:46,658 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,658 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,659 - INFO - Added annotation #25: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 3.194 inches from the bottom. No reference available
+2025-08-24 22:44:46,659 - INFO - Found YELLOW cell: Page 34, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,659 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,659 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,660 - INFO - Added annotation #26: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,660 - INFO - Found YELLOW cell: Page 34, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,660 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,660 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,660 - INFO - Added annotation #27: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,661 - INFO - Found RED cell: Page 35, Column 'Footnote Baseline (in)', Value: 5.25
+2025-08-24 22:44:46,661 - INFO - Added annotation #28: RED Footnote Baseline (in). Text is 5.25 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,661 - INFO - Found YELLOW cell: Page 36, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 3.34
+2025-08-24 22:44:46,661 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,661 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,662 - INFO - Added annotation #29: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 3.34 inches from the bottom. No reference available
+2025-08-24 22:44:46,662 - INFO - Found YELLOW cell: Page 36, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 3.34
+2025-08-24 22:44:46,662 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,662 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,662 - INFO - Added annotation #30: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 3.34 inches from the bottom. No reference available
+2025-08-24 22:44:46,662 - INFO - Found RED cell: Page 36, Column 'Footnote Baseline (in)', Value: 3.049
+2025-08-24 22:44:46,663 - INFO - Added annotation #31: RED Footnote Baseline (in). Text is 3.049 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,663 - INFO - Found YELLOW cell: Page 37, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,664 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,664 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,664 - INFO - Added annotation #32: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,665 - INFO - Found YELLOW cell: Page 37, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,665 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,665 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,665 - INFO - Added annotation #33: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,666 - INFO - Found YELLOW cell: Page 39, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,666 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,666 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,667 - INFO - Added annotation #34: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,667 - INFO - Found YELLOW cell: Page 39, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,668 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,668 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,668 - INFO - Added annotation #35: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,669 - INFO - Found RED cell: Page 39, Column 'Column 1 Right Edge (in)', Value: 2.802
+2025-08-24 22:44:46,669 - INFO - Added annotation #36: RED Column 1 Right Edge (in). Text is 2.802 inches from the side. Normally text is 3.725
+2025-08-24 22:44:46,669 - INFO - Found RED cell: Page 39, Column 'Column 1 Max Width (in)', Value: 3.448
+2025-08-24 22:44:46,670 - INFO - Added annotation #37: RED Column 1 Max Width (in). Text is 3.448 inches from the side. Normally text is 2.525
+2025-08-24 22:44:46,670 - INFO - Found RED cell: Page 39, Column 'Column 2 Left Edge (in)', Value: 2.898
+2025-08-24 22:44:46,671 - INFO - Added annotation #38: RED Column 2 Left Edge (in). Text is 2.898 inches from the side. Normally text is 3.882
+2025-08-24 22:44:46,671 - INFO - Found RED cell: Page 39, Column 'Column 2 Right Edge (in)', Value: 2.802
+2025-08-24 22:44:46,671 - INFO - Added annotation #39: RED Column 2 Right Edge (in). Text is 2.802 inches from the side. Normally text is 1.093
+2025-08-24 22:44:46,672 - INFO - Found RED cell: Page 39, Column 'Column 2 Max Width (in)', Value: 1.801
+2025-08-24 22:44:46,672 - INFO - Added annotation #40: RED Column 2 Max Width (in). Text is 1.801 inches from the side. Normally text is 2.525
+2025-08-24 22:44:46,672 - INFO - Found RED cell: Page 39, Column 'Column Gap Width (in)', Value: -1.801
+2025-08-24 22:44:46,673 - INFO - Added annotation #41: RED Column Gap Width (in). Text is -1.801 inches from the side. Normally text is 0.107
+2025-08-24 22:44:46,673 - INFO - Found YELLOW cell: Page 41, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 4.799
+2025-08-24 22:44:46,673 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,674 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,674 - INFO - Added annotation #42: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 4.799 inches from the bottom. No reference available
+2025-08-24 22:44:46,675 - INFO - Found YELLOW cell: Page 41, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 4.799
+2025-08-24 22:44:46,675 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,675 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,675 - INFO - Added annotation #43: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 4.799 inches from the bottom. No reference available
+2025-08-24 22:44:46,676 - INFO - Found RED cell: Page 41, Column 'Footnote Baseline (in)', Value: 4.507
+2025-08-24 22:44:46,676 - INFO - Added annotation #44: RED Footnote Baseline (in). Text is 4.507 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,676 - INFO - Found YELLOW cell: Page 42, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,677 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,677 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,677 - INFO - Added annotation #45: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,677 - INFO - Found YELLOW cell: Page 42, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,678 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,678 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,678 - INFO - Added annotation #46: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,679 - INFO - Found YELLOW cell: Page 43, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,679 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,679 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,679 - INFO - Added annotation #47: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,680 - INFO - Found YELLOW cell: Page 43, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,680 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,680 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,680 - INFO - Added annotation #48: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,680 - INFO - Found YELLOW cell: Page 44, Column 'Footnote Baseline (in)', Value: 1.007
+2025-08-24 22:44:46,681 - INFO - Added annotation #49: YELLOW Footnote Baseline (in). Text is 1.007 inches from the bottom. Normally text is 0.997
+2025-08-24 22:44:46,681 - INFO - Found YELLOW cell: Page 48, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,682 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,682 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,682 - INFO - Added annotation #50: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,683 - INFO - Found YELLOW cell: Page 48, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,683 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,683 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,684 - INFO - Added annotation #51: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,684 - INFO - Found YELLOW cell: Page 49, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 1.007
+2025-08-24 22:44:46,684 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,684 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,685 - INFO - Added annotation #52: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,685 - INFO - Found YELLOW cell: Page 49, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 1.007
+2025-08-24 22:44:46,685 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,685 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Right pages, creating annotation without reference
+2025-08-24 22:44:46,686 - INFO - Added annotation #53: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 1.007 inches from the bottom. No reference available
+2025-08-24 22:44:46,686 - INFO - Found YELLOW cell: Page 52, Column 'Bottom Scripture Baseline Column 1 (in)', Value: 2.757
+2025-08-24 22:44:46,687 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 1 (in)'
+2025-08-24 22:44:46,687 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 1 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,687 - INFO - Added annotation #54: YELLOW Bottom Scripture Baseline Column 1 (in). Text is 2.757 inches from the bottom. No reference available
+2025-08-24 22:44:46,687 - INFO - Found YELLOW cell: Page 52, Column 'Bottom Scripture Baseline Column 2 (in)', Value: 2.757
+2025-08-24 22:44:46,687 - WARNING - No mapping found for column 'Bottom Scripture Baseline Column 2 (in)'
+2025-08-24 22:44:46,688 - WARNING - No reference value found for 'Bottom Scripture Baseline Column 2 (in)' on Left pages, creating annotation without reference
+2025-08-24 22:44:46,688 - INFO - Added annotation #55: YELLOW Bottom Scripture Baseline Column 2 (in). Text is 2.757 inches from the bottom. No reference available
+2025-08-24 22:44:46,689 - INFO - Total annotations prepared for 02-Exodus: 55
+2025-08-24 22:44:46,689 - INFO - Opening PDF file: 02-Exodus.pdf
+2025-08-24 22:44:46,691 - INFO - PDF opened successfully. Pages: 52
+2025-08-24 22:44:46,694 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,694 - INFO - TOP: Page 1, 7.16 inches from top = 515.52 pts from top
+2025-08-24 22:44:46,699 - INFO - Added annotation to page 1 at (271.152, 515.52)
+2025-08-24 22:44:46,699 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,699 - INFO - BOTTOM: Page 3, 1.444 inches from bottom = 652.032 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,702 - INFO - Added annotation to page 3 at (163.152, 652.032)
+2025-08-24 22:44:46,703 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,703 - INFO - BOTTOM: Page 3, 1.444 inches from bottom = 652.032 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,706 - INFO - Added annotation to page 3 at (379.152, 652.032)
+2025-08-24 22:44:46,707 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,707 - INFO - BOTTOM: Page 3, 1.011 inches from bottom = 683.208 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,710 - INFO - Added annotation to page 3 at (271.152, 683.208)
+2025-08-24 22:44:46,710 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,711 - INFO - BOTTOM: Page 5, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,713 - INFO - Added annotation to page 5 at (163.152, 683.496)
+2025-08-24 22:44:46,713 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,714 - INFO - BOTTOM: Page 5, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,716 - INFO - Added annotation to page 5 at (379.152, 683.496)
+2025-08-24 22:44:46,717 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,717 - INFO - BOTTOM: Page 8, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,720 - INFO - Added annotation to page 8 at (271.152, 683.496)
+2025-08-24 22:44:46,720 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,721 - INFO - BOTTOM: Page 10, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,724 - INFO - Added annotation to page 10 at (163.152, 683.496)
+2025-08-24 22:44:46,724 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,725 - INFO - BOTTOM: Page 10, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,727 - INFO - Added annotation to page 10 at (379.152, 683.496)
+2025-08-24 22:44:46,728 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,728 - INFO - BOTTOM: Page 13, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,731 - INFO - Added annotation to page 13 at (163.152, 683.496)
+2025-08-24 22:44:46,731 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,731 - INFO - BOTTOM: Page 13, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,735 - INFO - Added annotation to page 13 at (379.152, 683.496)
+2025-08-24 22:44:46,735 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,736 - INFO - BOTTOM: Page 14, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,740 - INFO - Added annotation to page 14 at (163.152, 683.496)
+2025-08-24 22:44:46,740 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,741 - INFO - BOTTOM: Page 14, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,745 - INFO - Added annotation to page 14 at (379.152, 683.496)
+2025-08-24 22:44:46,745 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,746 - INFO - BOTTOM: Page 15, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,750 - INFO - Added annotation to page 15 at (163.152, 683.496)
+2025-08-24 22:44:46,751 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,751 - INFO - BOTTOM: Page 15, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,755 - INFO - Added annotation to page 15 at (379.152, 683.496)
+2025-08-24 22:44:46,756 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,756 - INFO - BOTTOM: Page 19, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,760 - INFO - Added annotation to page 19 at (271.152, 683.496)
+2025-08-24 22:44:46,760 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,760 - INFO - BOTTOM: Page 24, 1.444 inches from bottom = 652.032 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,764 - INFO - Added annotation to page 24 at (163.152, 652.032)
+2025-08-24 22:44:46,764 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,765 - INFO - BOTTOM: Page 24, 1.444 inches from bottom = 652.032 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,767 - INFO - Added annotation to page 24 at (379.152, 652.032)
+2025-08-24 22:44:46,767 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,767 - INFO - BOTTOM: Page 28, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,770 - INFO - Added annotation to page 28 at (163.152, 683.496)
+2025-08-24 22:44:46,770 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,771 - INFO - BOTTOM: Page 28, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,775 - INFO - Added annotation to page 28 at (379.152, 683.496)
+2025-08-24 22:44:46,775 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,776 - INFO - BOTTOM: Page 29, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,779 - INFO - Added annotation to page 29 at (163.152, 683.496)
+2025-08-24 22:44:46,780 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,780 - INFO - BOTTOM: Page 29, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,783 - INFO - Added annotation to page 29 at (379.152, 683.496)
+2025-08-24 22:44:46,783 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,783 - INFO - BOTTOM: Page 31, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,787 - INFO - Added annotation to page 31 at (271.152, 683.496)
+2025-08-24 22:44:46,787 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,788 - INFO - BOTTOM: Page 32, 3.194 inches from bottom = 526.032 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,794 - INFO - Added annotation to page 32 at (163.152, 526.032)
+2025-08-24 22:44:46,795 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,795 - INFO - BOTTOM: Page 32, 3.194 inches from bottom = 526.032 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,799 - INFO - Added annotation to page 32 at (379.152, 526.032)
+2025-08-24 22:44:46,799 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,799 - INFO - BOTTOM: Page 34, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,803 - INFO - Added annotation to page 34 at (163.152, 683.496)
+2025-08-24 22:44:46,803 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,803 - INFO - BOTTOM: Page 34, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,807 - INFO - Added annotation to page 34 at (379.152, 683.496)
+2025-08-24 22:44:46,808 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,809 - INFO - BOTTOM: Page 35, 5.25 inches from bottom = 378.0 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,812 - INFO - Added annotation to page 35 at (271.152, 378.0)
+2025-08-24 22:44:46,813 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,813 - INFO - BOTTOM: Page 36, 3.34 inches from bottom = 515.52 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,815 - INFO - Added annotation to page 36 at (163.152, 515.52)
+2025-08-24 22:44:46,816 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,816 - INFO - BOTTOM: Page 36, 3.34 inches from bottom = 515.52 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,818 - INFO - Added annotation to page 36 at (379.152, 515.52)
+2025-08-24 22:44:46,819 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,819 - INFO - BOTTOM: Page 36, 3.049 inches from bottom = 536.472 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,822 - INFO - Added annotation to page 36 at (271.152, 536.472)
+2025-08-24 22:44:46,823 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,824 - INFO - BOTTOM: Page 37, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,827 - INFO - Added annotation to page 37 at (163.152, 683.496)
+2025-08-24 22:44:46,827 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,827 - INFO - BOTTOM: Page 37, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,830 - INFO - Added annotation to page 37 at (379.152, 683.496)
+2025-08-24 22:44:46,831 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,831 - INFO - BOTTOM: Page 39, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,834 - INFO - Added annotation to page 39 at (163.152, 683.496)
+2025-08-24 22:44:46,835 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,835 - INFO - BOTTOM: Page 39, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,838 - INFO - Added annotation to page 39 at (379.152, 683.496)
+2025-08-24 22:44:46,838 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,839 - INFO - TOP: Page 39, 2.802 inches from top = 201.744 pts from top
+2025-08-24 22:44:46,844 - INFO - Added annotation to page 39 at (163.152, 201.744)
+2025-08-24 22:44:46,844 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,845 - INFO - TOP: Page 39, 3.448 inches from top = 248.256 pts from top
+2025-08-24 22:44:46,849 - INFO - Added annotation to page 39 at (163.152, 248.256)
+2025-08-24 22:44:46,849 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,850 - INFO - TOP: Page 39, 2.898 inches from top = 208.656 pts from top
+2025-08-24 22:44:46,854 - INFO - Added annotation to page 39 at (379.152, 208.656)
+2025-08-24 22:44:46,855 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,856 - INFO - TOP: Page 39, 2.802 inches from top = 201.744 pts from top
+2025-08-24 22:44:46,862 - INFO - Added annotation to page 39 at (379.152, 201.744)
+2025-08-24 22:44:46,862 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,863 - INFO - TOP: Page 39, 1.801 inches from top = 129.672 pts from top
+2025-08-24 22:44:46,868 - INFO - Added annotation to page 39 at (379.152, 129.672)
+2025-08-24 22:44:46,868 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,869 - INFO - TOP: Page 39, -1.801 inches from top = -129.672 pts from top
+2025-08-24 22:44:46,869 - WARNING - Annotation Y coordinate -129.672 is above page, clamping to 0
+2025-08-24 22:44:46,875 - INFO - Added annotation to page 39 at (271.152, 0)
+2025-08-24 22:44:46,876 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,876 - INFO - BOTTOM: Page 41, 4.799 inches from bottom = 410.472 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,880 - INFO - Added annotation to page 41 at (163.152, 410.472)
+2025-08-24 22:44:46,881 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,881 - INFO - BOTTOM: Page 41, 4.799 inches from bottom = 410.472 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,885 - INFO - Added annotation to page 41 at (379.152, 410.472)
+2025-08-24 22:44:46,886 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,886 - INFO - BOTTOM: Page 41, 4.507 inches from bottom = 431.49600000000004 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,891 - INFO - Added annotation to page 41 at (271.152, 431.49600000000004)
+2025-08-24 22:44:46,891 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,892 - INFO - BOTTOM: Page 42, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,895 - INFO - Added annotation to page 42 at (163.152, 683.496)
+2025-08-24 22:44:46,896 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,896 - INFO - BOTTOM: Page 42, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,899 - INFO - Added annotation to page 42 at (379.152, 683.496)
+2025-08-24 22:44:46,900 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,901 - INFO - BOTTOM: Page 43, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,904 - INFO - Added annotation to page 43 at (163.152, 683.496)
+2025-08-24 22:44:46,904 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,905 - INFO - BOTTOM: Page 43, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,909 - INFO - Added annotation to page 43 at (379.152, 683.496)
+2025-08-24 22:44:46,910 - INFO - No column reference detected: Using center position 3.766 inches
+2025-08-24 22:44:46,910 - INFO - BOTTOM: Page 44, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,914 - INFO - Added annotation to page 44 at (271.152, 683.496)
+2025-08-24 22:44:46,914 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,915 - INFO - BOTTOM: Page 48, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,919 - INFO - Added annotation to page 48 at (163.152, 683.496)
+2025-08-24 22:44:46,920 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,921 - INFO - BOTTOM: Page 48, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,927 - INFO - Added annotation to page 48 at (379.152, 683.496)
+2025-08-24 22:44:46,928 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,928 - INFO - BOTTOM: Page 49, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,933 - INFO - Added annotation to page 49 at (163.152, 683.496)
+2025-08-24 22:44:46,934 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,934 - INFO - BOTTOM: Page 49, 1.007 inches from bottom = 683.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,939 - INFO - Added annotation to page 49 at (379.152, 683.496)
+2025-08-24 22:44:46,940 - INFO - Column 1 detected: Moving comment left 1.5 inches to 2.266 inches
+2025-08-24 22:44:46,941 - INFO - BOTTOM: Page 52, 2.757 inches from bottom = 557.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,947 - INFO - Added annotation to page 52 at (163.152, 557.496)
+2025-08-24 22:44:46,948 - INFO - Column 2 detected: Moving comment right 1.5 inches to 5.266 inches
+2025-08-24 22:44:46,949 - INFO - BOTTOM: Page 52, 2.757 inches from bottom = 557.496 pts from top (page height: 756.0 pts)
+2025-08-24 22:44:46,953 - INFO - Added annotation to page 52 at (379.152, 557.496)
+2025-08-24 22:44:46,954 - INFO - Saving annotated PDF to: 02-Exodus_annotated.pdf
+2025-08-24 22:44:47,063 - INFO - PDF saved successfully
+2025-08-24 22:44:47,063 - INFO - === 02-Exodus Complete: 55 annotations added ===
+2025-08-24 22:44:47,064 - INFO - === BATCH PROCESSING COMPLETE ===
+2025-08-24 22:44:47,065 - INFO - Successfully processed: 1
+2025-08-24 22:44:47,065 - INFO - Failed: 0

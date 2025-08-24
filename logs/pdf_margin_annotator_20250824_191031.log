@@ -1,0 +1,334 @@
+2025-08-24 19:10:31,031 - INFO - === PDF Margin Annotator Started ===
+2025-08-24 19:10:31,032 - INFO - Log file: logs/pdf_margin_annotator_20250824_191031.log
+2025-08-24 19:10:31,032 - INFO - Loading reference values from: margin_baseline_reference.txt
+2025-08-24 19:10:31,032 - INFO - Successfully loaded 20 reference values
+2025-08-24 19:10:31,033 - INFO - Found pair: 02-Exodus.pdf + 02-Exodus.xlsx -> 02-Exodus_annotated.pdf
+2025-08-24 19:10:31,033 - WARNING - PDF found but no matching Excel file: 02-Exodus_annotated.pdf (looking for 02-Exodus_annotated.xlsx)
+2025-08-24 19:10:31,035 - INFO - Found 1 file pair(s) to process
+2025-08-24 19:10:31,035 - INFO - === Processing 02-Exodus ===
+2025-08-24 19:10:31,035 - INFO - Excel: 02-Exodus.xlsx
+2025-08-24 19:10:31,035 - INFO - PDF: 02-Exodus.pdf
+2025-08-24 19:10:31,035 - INFO - Output: 02-Exodus_annotated.pdf
+2025-08-24 19:10:31,035 - INFO - Using center point: 3.766 inches
+2025-08-24 19:10:31,035 - INFO - Using page height: 9.25 inches
+2025-08-24 19:10:31,036 - INFO - Loading Excel file: 02-Exodus.xlsx
+2025-08-24 19:10:31,046 - INFO - Excel file loaded successfully
+2025-08-24 19:10:31,046 - INFO - [PURPLE] Page 1, 'Top Scripture Baseline Column 1 (in)', value=7.306, x_tag=col1, bottom=False
+2025-08-24 19:10:31,047 - INFO - [PURPLE] Page 1, 'Top Scripture Baseline Column 2 (in)', value=7.16, x_tag=col2, bottom=False
+2025-08-24 19:10:31,047 - INFO - [RED] Page 1, 'Running Head Baseline (in)', value=7.16, x_tag=center, bottom=False
+2025-08-24 19:10:31,047 - INFO - [YELLOW] Page 3, 'Bottom Scripture Baseline Column 1 (in)', value=1.444, x_tag=col1, bottom=True
+2025-08-24 19:10:31,047 - INFO - [YELLOW] Page 3, 'Bottom Scripture Baseline Column 2 (in)', value=1.444, x_tag=col2, bottom=True
+2025-08-24 19:10:31,048 - INFO - [YELLOW] Page 3, 'Footnote Baseline (in)', value=1.011, x_tag=center, bottom=True
+2025-08-24 19:10:31,048 - INFO - [YELLOW] Page 5, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,048 - INFO - [YELLOW] Page 5, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,048 - INFO - [YELLOW] Page 8, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,048 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C10
+2025-08-24 19:10:31,050 - INFO - [YELLOW] Page 10, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,050 - INFO - [YELLOW] Page 10, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,050 - INFO - [YELLOW] Page 13, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,050 - INFO - [YELLOW] Page 13, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,051 - INFO - [YELLOW] Page 14, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,051 - INFO - [YELLOW] Page 14, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,051 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C16
+2025-08-24 19:10:31,052 - INFO - [YELLOW] Page 15, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,052 - INFO - [YELLOW] Page 15, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,053 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D19
+2025-08-24 19:10:31,054 - WARNING - Unknown color '00FFC000' (norm='FFC000') at E19
+2025-08-24 19:10:31,055 - INFO - [YELLOW] Page 19, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,055 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C25
+2025-08-24 19:10:31,056 - INFO - [YELLOW] Page 24, 'Bottom Scripture Baseline Column 1 (in)', value=1.444, x_tag=col1, bottom=True
+2025-08-24 19:10:31,056 - INFO - [YELLOW] Page 24, 'Bottom Scripture Baseline Column 2 (in)', value=1.444, x_tag=col2, bottom=True
+2025-08-24 19:10:31,057 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D26
+2025-08-24 19:10:31,058 - INFO - [PURPLE] Page 27, 'Bottom Scripture Baseline Column 2 (in)', value=3.049, x_tag=col2, bottom=True
+2025-08-24 19:10:31,058 - INFO - [YELLOW] Page 28, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,058 - INFO - [YELLOW] Page 28, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,059 - INFO - [YELLOW] Page 29, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,059 - INFO - [YELLOW] Page 29, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,060 - INFO - [YELLOW] Page 31, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,060 - INFO - [YELLOW] Page 32, 'Bottom Scripture Baseline Column 1 (in)', value=3.194, x_tag=col1, bottom=True
+2025-08-24 19:10:31,060 - INFO - [YELLOW] Page 32, 'Bottom Scripture Baseline Column 2 (in)', value=3.194, x_tag=col2, bottom=True
+2025-08-24 19:10:31,060 - INFO - [PURPLE] Page 33, 'Top Scripture Baseline Column 1 (in)', value=3.222, x_tag=col1, bottom=False
+2025-08-24 19:10:31,060 - INFO - [PURPLE] Page 33, 'Top Scripture Baseline Column 2 (in)', value=3.514, x_tag=col2, bottom=False
+2025-08-24 19:10:31,060 - INFO - [PURPLE] Page 33, 'Bottom Scripture Baseline Column 1 (in)', value=2.903, x_tag=col1, bottom=True
+2025-08-24 19:10:31,061 - WARNING - Unknown color '00FFC000' (norm='FFC000') at F34
+2025-08-24 19:10:31,061 - INFO - [YELLOW] Page 34, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,062 - INFO - [YELLOW] Page 34, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,062 - INFO - [PURPLE] Page 35, 'Bottom Scripture Baseline Column 1 (in)', value=5.528, x_tag=col1, bottom=True
+2025-08-24 19:10:31,063 - INFO - [PURPLE] Page 35, 'Bottom Scripture Baseline Column 2 (in)', value=5.819, x_tag=col2, bottom=True
+2025-08-24 19:10:31,063 - INFO - [RED] Page 35, 'Footnote Baseline (in)', value=5.25, x_tag=center, bottom=True
+2025-08-24 19:10:31,063 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C37
+2025-08-24 19:10:31,064 - INFO - [YELLOW] Page 36, 'Bottom Scripture Baseline Column 1 (in)', value=3.34, x_tag=col1, bottom=True
+2025-08-24 19:10:31,064 - INFO - [YELLOW] Page 36, 'Bottom Scripture Baseline Column 2 (in)', value=3.34, x_tag=col2, bottom=True
+2025-08-24 19:10:31,064 - INFO - [RED] Page 36, 'Footnote Baseline (in)', value=3.049, x_tag=center, bottom=True
+2025-08-24 19:10:31,064 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D38
+2025-08-24 19:10:31,065 - INFO - [YELLOW] Page 37, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,066 - INFO - [YELLOW] Page 37, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,066 - INFO - [PURPLE] Page 39, 'Top Scripture Baseline Column 2 (in)', value=1.91, x_tag=col2, bottom=False
+2025-08-24 19:10:31,066 - INFO - [YELLOW] Page 39, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,066 - INFO - [YELLOW] Page 39, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,067 - INFO - [RED] Page 39, 'Column 1 Right Edge (in)', value=2.802, x_tag=col1, bottom=False
+2025-08-24 19:10:31,067 - INFO - [RED] Page 39, 'Column 1 Max Width (in)', value=3.448, x_tag=col1, bottom=False
+2025-08-24 19:10:31,067 - INFO - [RED] Page 39, 'Column 2 Left Edge (in)', value=2.898, x_tag=col2, bottom=False
+2025-08-24 19:10:31,067 - INFO - [RED] Page 39, 'Column 2 Right Edge (in)', value=2.802, x_tag=col2, bottom=False
+2025-08-24 19:10:31,067 - INFO - [RED] Page 39, 'Column 2 Max Width (in)', value=1.801, x_tag=col2, bottom=False
+2025-08-24 19:10:31,067 - INFO - [RED] Page 39, 'Column Gap Width (in)', value=-1.801, x_tag=center, bottom=False
+2025-08-24 19:10:31,068 - INFO - [YELLOW] Page 41, 'Bottom Scripture Baseline Column 1 (in)', value=4.799, x_tag=col1, bottom=True
+2025-08-24 19:10:31,068 - INFO - [YELLOW] Page 41, 'Bottom Scripture Baseline Column 2 (in)', value=4.799, x_tag=col2, bottom=True
+2025-08-24 19:10:31,068 - INFO - [RED] Page 41, 'Footnote Baseline (in)', value=4.507, x_tag=center, bottom=True
+2025-08-24 19:10:31,068 - INFO - [YELLOW] Page 42, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,068 - INFO - [YELLOW] Page 42, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,068 - INFO - [YELLOW] Page 43, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,068 - INFO - [YELLOW] Page 43, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,069 - INFO - [YELLOW] Page 44, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,069 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D47
+2025-08-24 19:10:31,069 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C49
+2025-08-24 19:10:31,071 - INFO - [YELLOW] Page 48, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,071 - INFO - [YELLOW] Page 48, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,071 - INFO - [PURPLE] Page 49, 'Top Scripture Baseline Column 2 (in)', value=1.764, x_tag=col2, bottom=False
+2025-08-24 19:10:31,071 - INFO - [YELLOW] Page 49, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,072 - INFO - [YELLOW] Page 49, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,072 - INFO - [YELLOW] Page 52, 'Bottom Scripture Baseline Column 1 (in)', value=2.757, x_tag=col1, bottom=True
+2025-08-24 19:10:31,072 - INFO - [YELLOW] Page 52, 'Bottom Scripture Baseline Column 2 (in)', value=2.757, x_tag=col2, bottom=True
+2025-08-24 19:10:31,073 - INFO - Total annotations prepared for 02-Exodus: 65
+2025-08-24 19:10:31,073 - INFO - Opening PDF file: 02-Exodus.pdf
+2025-08-24 19:10:31,074 - INFO - PDF opened successfully. Pages: 52
+2025-08-24 19:10:31,079 - INFO - Added purple annotation to page 1 at (2.27 in, 7.31 in)
+2025-08-24 19:10:31,081 - INFO - Added purple annotation to page 1 at (5.27 in, 7.16 in)
+2025-08-24 19:10:31,082 - INFO - Added red annotation to page 1 at (3.77 in, 7.16 in)
+2025-08-24 19:10:31,084 - INFO - Added yellow annotation to page 3 at (2.27 in, 9.06 in)
+2025-08-24 19:10:31,086 - INFO - Added yellow annotation to page 3 at (5.27 in, 9.06 in)
+2025-08-24 19:10:31,088 - INFO - Added yellow annotation to page 3 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,090 - INFO - Added yellow annotation to page 5 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,091 - INFO - Added yellow annotation to page 5 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,093 - INFO - Added yellow annotation to page 8 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,095 - INFO - Added yellow annotation to page 10 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,096 - INFO - Added yellow annotation to page 10 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,098 - INFO - Added yellow annotation to page 13 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,100 - INFO - Added yellow annotation to page 13 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,101 - INFO - Added yellow annotation to page 14 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,103 - INFO - Added yellow annotation to page 14 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,105 - INFO - Added yellow annotation to page 15 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,107 - INFO - Added yellow annotation to page 15 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,108 - INFO - Added yellow annotation to page 19 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,111 - INFO - Added yellow annotation to page 24 at (2.27 in, 9.06 in)
+2025-08-24 19:10:31,113 - INFO - Added yellow annotation to page 24 at (5.27 in, 9.06 in)
+2025-08-24 19:10:31,115 - INFO - Added purple annotation to page 27 at (5.27 in, 7.45 in)
+2025-08-24 19:10:31,117 - INFO - Added yellow annotation to page 28 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,118 - INFO - Added yellow annotation to page 28 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,120 - INFO - Added yellow annotation to page 29 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,123 - INFO - Added yellow annotation to page 29 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,126 - INFO - Added yellow annotation to page 31 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,128 - INFO - Added yellow annotation to page 32 at (2.27 in, 7.31 in)
+2025-08-24 19:10:31,130 - INFO - Added yellow annotation to page 32 at (5.27 in, 7.31 in)
+2025-08-24 19:10:31,131 - INFO - Added purple annotation to page 33 at (2.27 in, 3.22 in)
+2025-08-24 19:10:31,133 - INFO - Added purple annotation to page 33 at (5.27 in, 3.51 in)
+2025-08-24 19:10:31,134 - INFO - Added purple annotation to page 33 at (2.27 in, 7.60 in)
+2025-08-24 19:10:31,136 - INFO - Added yellow annotation to page 34 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,138 - INFO - Added yellow annotation to page 34 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,141 - INFO - Added purple annotation to page 35 at (2.27 in, 4.97 in)
+2025-08-24 19:10:31,143 - INFO - Added purple annotation to page 35 at (5.27 in, 4.68 in)
+2025-08-24 19:10:31,145 - INFO - Added red annotation to page 35 at (3.77 in, 5.25 in)
+2025-08-24 19:10:31,146 - INFO - Added yellow annotation to page 36 at (2.27 in, 7.16 in)
+2025-08-24 19:10:31,148 - INFO - Added yellow annotation to page 36 at (5.27 in, 7.16 in)
+2025-08-24 19:10:31,149 - INFO - Added red annotation to page 36 at (3.77 in, 7.45 in)
+2025-08-24 19:10:31,151 - INFO - Added yellow annotation to page 37 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,152 - INFO - Added yellow annotation to page 37 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,154 - INFO - Added purple annotation to page 39 at (5.27 in, 1.91 in)
+2025-08-24 19:10:31,157 - INFO - Added yellow annotation to page 39 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,158 - INFO - Added yellow annotation to page 39 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,160 - INFO - Added red annotation to page 39 at (2.27 in, 2.80 in)
+2025-08-24 19:10:31,162 - INFO - Added red annotation to page 39 at (2.27 in, 3.45 in)
+2025-08-24 19:10:31,164 - INFO - Added red annotation to page 39 at (5.27 in, 2.90 in)
+2025-08-24 19:10:31,165 - INFO - Added red annotation to page 39 at (5.27 in, 2.80 in)
+2025-08-24 19:10:31,167 - INFO - Added red annotation to page 39 at (5.27 in, 1.80 in)
+2025-08-24 19:10:31,168 - INFO - Added red annotation to page 39 at (3.77 in, 0.00 in)
+2025-08-24 19:10:31,170 - INFO - Added yellow annotation to page 41 at (2.27 in, 5.70 in)
+2025-08-24 19:10:31,172 - INFO - Added yellow annotation to page 41 at (5.27 in, 5.70 in)
+2025-08-24 19:10:31,174 - INFO - Added red annotation to page 41 at (3.77 in, 5.99 in)
+2025-08-24 19:10:31,175 - INFO - Added yellow annotation to page 42 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,177 - INFO - Added yellow annotation to page 42 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,178 - INFO - Added yellow annotation to page 43 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,179 - INFO - Added yellow annotation to page 43 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,181 - INFO - Added yellow annotation to page 44 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,182 - INFO - Added yellow annotation to page 48 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,183 - INFO - Added yellow annotation to page 48 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,185 - INFO - Added purple annotation to page 49 at (5.27 in, 1.76 in)
+2025-08-24 19:10:31,186 - INFO - Added yellow annotation to page 49 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,190 - INFO - Added yellow annotation to page 49 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,192 - INFO - Added yellow annotation to page 52 at (2.27 in, 7.74 in)
+2025-08-24 19:10:31,193 - INFO - Added yellow annotation to page 52 at (5.27 in, 7.74 in)
+2025-08-24 19:10:31,194 - INFO - Saving annotated PDF to: 02-Exodus_annotated.pdf
+2025-08-24 19:10:31,226 - INFO - PDF saved successfully
+2025-08-24 19:10:31,227 - INFO - === 02-Exodus Complete: 65 annotations added ===
+2025-08-24 19:10:31,227 - INFO - Expected counts: {'RED': 10, 'YELLOW': 45, 'PURPLE': 10, 'ORANGE': 0}
+2025-08-24 19:10:31,227 - INFO - Added counts: {'RED': 10, 'YELLOW': 45, 'PURPLE': 10, 'ORANGE': 0}
+2025-08-24 19:10:31,227 - INFO - === BATCH PROCESSING COMPLETE ===
+2025-08-24 19:10:31,227 - INFO - Successfully processed: 1
+2025-08-24 19:10:31,227 - INFO - Failed: 0
+2025-08-24 19:10:31,228 - INFO - === PDF Margin Annotator Started ===
+2025-08-24 19:10:31,228 - INFO - Log file: logs/pdf_margin_annotator_20250824_191031.log
+2025-08-24 19:10:31,228 - INFO - Loading reference values from: margin_baseline_reference.txt
+2025-08-24 19:10:31,229 - INFO - Successfully loaded 20 reference values
+2025-08-24 19:10:31,229 - INFO - Found pair: 02-Exodus.pdf + 02-Exodus.xlsx -> 02-Exodus_annotated.pdf
+2025-08-24 19:10:31,229 - WARNING - PDF found but no matching Excel file: 02-Exodus_annotated.pdf (looking for 02-Exodus_annotated.xlsx)
+2025-08-24 19:10:31,229 - INFO - Found 1 file pair(s) to process
+2025-08-24 19:10:31,230 - INFO - === Processing 02-Exodus ===
+2025-08-24 19:10:31,230 - INFO - Excel: 02-Exodus.xlsx
+2025-08-24 19:10:31,230 - INFO - PDF: 02-Exodus.pdf
+2025-08-24 19:10:31,230 - INFO - Output: 02-Exodus_annotated.pdf
+2025-08-24 19:10:31,230 - INFO - Using center point: 3.766 inches
+2025-08-24 19:10:31,230 - INFO - Using page height: 9.25 inches
+2025-08-24 19:10:31,230 - INFO - Loading Excel file: 02-Exodus.xlsx
+2025-08-24 19:10:31,241 - INFO - Excel file loaded successfully
+2025-08-24 19:10:31,241 - INFO - [PURPLE] Page 1, 'Top Scripture Baseline Column 1 (in)', value=7.306, x_tag=col1, bottom=False
+2025-08-24 19:10:31,241 - INFO - [PURPLE] Page 1, 'Top Scripture Baseline Column 2 (in)', value=7.16, x_tag=col2, bottom=False
+2025-08-24 19:10:31,242 - INFO - [RED] Page 1, 'Running Head Baseline (in)', value=7.16, x_tag=center, bottom=False
+2025-08-24 19:10:31,242 - INFO - [YELLOW] Page 3, 'Bottom Scripture Baseline Column 1 (in)', value=1.444, x_tag=col1, bottom=True
+2025-08-24 19:10:31,242 - INFO - [YELLOW] Page 3, 'Bottom Scripture Baseline Column 2 (in)', value=1.444, x_tag=col2, bottom=True
+2025-08-24 19:10:31,242 - INFO - [YELLOW] Page 3, 'Footnote Baseline (in)', value=1.011, x_tag=center, bottom=True
+2025-08-24 19:10:31,242 - INFO - [YELLOW] Page 5, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,242 - INFO - [YELLOW] Page 5, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,243 - INFO - [YELLOW] Page 8, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,243 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C10
+2025-08-24 19:10:31,244 - INFO - [YELLOW] Page 10, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,244 - INFO - [YELLOW] Page 10, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,244 - INFO - [YELLOW] Page 13, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,244 - INFO - [YELLOW] Page 13, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,244 - INFO - [YELLOW] Page 14, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,244 - INFO - [YELLOW] Page 14, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,245 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C16
+2025-08-24 19:10:31,245 - INFO - [YELLOW] Page 15, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,245 - INFO - [YELLOW] Page 15, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,246 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D19
+2025-08-24 19:10:31,246 - WARNING - Unknown color '00FFC000' (norm='FFC000') at E19
+2025-08-24 19:10:31,247 - INFO - [YELLOW] Page 19, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,247 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C25
+2025-08-24 19:10:31,247 - INFO - [YELLOW] Page 24, 'Bottom Scripture Baseline Column 1 (in)', value=1.444, x_tag=col1, bottom=True
+2025-08-24 19:10:31,248 - INFO - [YELLOW] Page 24, 'Bottom Scripture Baseline Column 2 (in)', value=1.444, x_tag=col2, bottom=True
+2025-08-24 19:10:31,248 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D26
+2025-08-24 19:10:31,249 - INFO - [PURPLE] Page 27, 'Bottom Scripture Baseline Column 2 (in)', value=3.049, x_tag=col2, bottom=True
+2025-08-24 19:10:31,249 - INFO - [YELLOW] Page 28, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,249 - INFO - [YELLOW] Page 28, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,249 - INFO - [YELLOW] Page 29, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,249 - INFO - [YELLOW] Page 29, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,249 - INFO - [YELLOW] Page 31, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,250 - INFO - [YELLOW] Page 32, 'Bottom Scripture Baseline Column 1 (in)', value=3.194, x_tag=col1, bottom=True
+2025-08-24 19:10:31,250 - INFO - [YELLOW] Page 32, 'Bottom Scripture Baseline Column 2 (in)', value=3.194, x_tag=col2, bottom=True
+2025-08-24 19:10:31,250 - INFO - [PURPLE] Page 33, 'Top Scripture Baseline Column 1 (in)', value=3.222, x_tag=col1, bottom=False
+2025-08-24 19:10:31,250 - INFO - [PURPLE] Page 33, 'Top Scripture Baseline Column 2 (in)', value=3.514, x_tag=col2, bottom=False
+2025-08-24 19:10:31,250 - INFO - [PURPLE] Page 33, 'Bottom Scripture Baseline Column 1 (in)', value=2.903, x_tag=col1, bottom=True
+2025-08-24 19:10:31,250 - WARNING - Unknown color '00FFC000' (norm='FFC000') at F34
+2025-08-24 19:10:31,251 - INFO - [YELLOW] Page 34, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,251 - INFO - [YELLOW] Page 34, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,251 - INFO - [PURPLE] Page 35, 'Bottom Scripture Baseline Column 1 (in)', value=5.528, x_tag=col1, bottom=True
+2025-08-24 19:10:31,251 - INFO - [PURPLE] Page 35, 'Bottom Scripture Baseline Column 2 (in)', value=5.819, x_tag=col2, bottom=True
+2025-08-24 19:10:31,252 - INFO - [RED] Page 35, 'Footnote Baseline (in)', value=5.25, x_tag=center, bottom=True
+2025-08-24 19:10:31,252 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C37
+2025-08-24 19:10:31,253 - INFO - [YELLOW] Page 36, 'Bottom Scripture Baseline Column 1 (in)', value=3.34, x_tag=col1, bottom=True
+2025-08-24 19:10:31,253 - INFO - [YELLOW] Page 36, 'Bottom Scripture Baseline Column 2 (in)', value=3.34, x_tag=col2, bottom=True
+2025-08-24 19:10:31,253 - INFO - [RED] Page 36, 'Footnote Baseline (in)', value=3.049, x_tag=center, bottom=True
+2025-08-24 19:10:31,253 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D38
+2025-08-24 19:10:31,254 - INFO - [YELLOW] Page 37, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,254 - INFO - [YELLOW] Page 37, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,255 - INFO - [PURPLE] Page 39, 'Top Scripture Baseline Column 2 (in)', value=1.91, x_tag=col2, bottom=False
+2025-08-24 19:10:31,255 - INFO - [YELLOW] Page 39, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,255 - INFO - [YELLOW] Page 39, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,255 - INFO - [RED] Page 39, 'Column 1 Right Edge (in)', value=2.802, x_tag=col1, bottom=False
+2025-08-24 19:10:31,256 - INFO - [RED] Page 39, 'Column 1 Max Width (in)', value=3.448, x_tag=col1, bottom=False
+2025-08-24 19:10:31,256 - INFO - [RED] Page 39, 'Column 2 Left Edge (in)', value=2.898, x_tag=col2, bottom=False
+2025-08-24 19:10:31,256 - INFO - [RED] Page 39, 'Column 2 Right Edge (in)', value=2.802, x_tag=col2, bottom=False
+2025-08-24 19:10:31,256 - INFO - [RED] Page 39, 'Column 2 Max Width (in)', value=1.801, x_tag=col2, bottom=False
+2025-08-24 19:10:31,256 - INFO - [RED] Page 39, 'Column Gap Width (in)', value=-1.801, x_tag=center, bottom=False
+2025-08-24 19:10:31,256 - INFO - [YELLOW] Page 41, 'Bottom Scripture Baseline Column 1 (in)', value=4.799, x_tag=col1, bottom=True
+2025-08-24 19:10:31,257 - INFO - [YELLOW] Page 41, 'Bottom Scripture Baseline Column 2 (in)', value=4.799, x_tag=col2, bottom=True
+2025-08-24 19:10:31,257 - INFO - [RED] Page 41, 'Footnote Baseline (in)', value=4.507, x_tag=center, bottom=True
+2025-08-24 19:10:31,257 - INFO - [YELLOW] Page 42, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,257 - INFO - [YELLOW] Page 42, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,257 - INFO - [YELLOW] Page 43, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,257 - INFO - [YELLOW] Page 43, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,258 - INFO - [YELLOW] Page 44, 'Footnote Baseline (in)', value=1.007, x_tag=center, bottom=True
+2025-08-24 19:10:31,258 - WARNING - Unknown color '00FFC000' (norm='FFC000') at D47
+2025-08-24 19:10:31,258 - WARNING - Unknown color '00FFC000' (norm='FFC000') at C49
+2025-08-24 19:10:31,259 - INFO - [YELLOW] Page 48, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,259 - INFO - [YELLOW] Page 48, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,259 - INFO - [PURPLE] Page 49, 'Top Scripture Baseline Column 2 (in)', value=1.764, x_tag=col2, bottom=False
+2025-08-24 19:10:31,259 - INFO - [YELLOW] Page 49, 'Bottom Scripture Baseline Column 1 (in)', value=1.007, x_tag=col1, bottom=True
+2025-08-24 19:10:31,260 - INFO - [YELLOW] Page 49, 'Bottom Scripture Baseline Column 2 (in)', value=1.007, x_tag=col2, bottom=True
+2025-08-24 19:10:31,260 - INFO - [YELLOW] Page 52, 'Bottom Scripture Baseline Column 1 (in)', value=2.757, x_tag=col1, bottom=True
+2025-08-24 19:10:31,260 - INFO - [YELLOW] Page 52, 'Bottom Scripture Baseline Column 2 (in)', value=2.757, x_tag=col2, bottom=True
+2025-08-24 19:10:31,260 - INFO - Total annotations prepared for 02-Exodus: 65
+2025-08-24 19:10:31,260 - INFO - Opening PDF file: 02-Exodus.pdf
+2025-08-24 19:10:31,261 - INFO - PDF opened successfully. Pages: 52
+2025-08-24 19:10:31,264 - INFO - Added purple annotation to page 1 at (2.27 in, 7.31 in)
+2025-08-24 19:10:31,266 - INFO - Added purple annotation to page 1 at (5.27 in, 7.16 in)
+2025-08-24 19:10:31,267 - INFO - Added red annotation to page 1 at (3.77 in, 7.16 in)
+2025-08-24 19:10:31,269 - INFO - Added yellow annotation to page 3 at (2.27 in, 9.06 in)
+2025-08-24 19:10:31,271 - INFO - Added yellow annotation to page 3 at (5.27 in, 9.06 in)
+2025-08-24 19:10:31,273 - INFO - Added yellow annotation to page 3 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,275 - INFO - Added yellow annotation to page 5 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,277 - INFO - Added yellow annotation to page 5 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,279 - INFO - Added yellow annotation to page 8 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,280 - INFO - Added yellow annotation to page 10 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,282 - INFO - Added yellow annotation to page 10 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,283 - INFO - Added yellow annotation to page 13 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,285 - INFO - Added yellow annotation to page 13 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,287 - INFO - Added yellow annotation to page 14 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,290 - INFO - Added yellow annotation to page 14 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,291 - INFO - Added yellow annotation to page 15 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,293 - INFO - Added yellow annotation to page 15 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,294 - INFO - Added yellow annotation to page 19 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,296 - INFO - Added yellow annotation to page 24 at (2.27 in, 9.06 in)
+2025-08-24 19:10:31,299 - INFO - Added yellow annotation to page 24 at (5.27 in, 9.06 in)
+2025-08-24 19:10:31,300 - INFO - Added purple annotation to page 27 at (5.27 in, 7.45 in)
+2025-08-24 19:10:31,301 - INFO - Added yellow annotation to page 28 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,303 - INFO - Added yellow annotation to page 28 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,305 - INFO - Added yellow annotation to page 29 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,307 - INFO - Added yellow annotation to page 29 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,308 - INFO - Added yellow annotation to page 31 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,310 - INFO - Added yellow annotation to page 32 at (2.27 in, 7.31 in)
+2025-08-24 19:10:31,312 - INFO - Added yellow annotation to page 32 at (5.27 in, 7.31 in)
+2025-08-24 19:10:31,314 - INFO - Added purple annotation to page 33 at (2.27 in, 3.22 in)
+2025-08-24 19:10:31,316 - INFO - Added purple annotation to page 33 at (5.27 in, 3.51 in)
+2025-08-24 19:10:31,317 - INFO - Added purple annotation to page 33 at (2.27 in, 7.60 in)
+2025-08-24 19:10:31,319 - INFO - Added yellow annotation to page 34 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,321 - INFO - Added yellow annotation to page 34 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,323 - INFO - Added purple annotation to page 35 at (2.27 in, 4.97 in)
+2025-08-24 19:10:31,325 - INFO - Added purple annotation to page 35 at (5.27 in, 4.68 in)
+2025-08-24 19:10:31,326 - INFO - Added red annotation to page 35 at (3.77 in, 5.25 in)
+2025-08-24 19:10:31,328 - INFO - Added yellow annotation to page 36 at (2.27 in, 7.16 in)
+2025-08-24 19:10:31,329 - INFO - Added yellow annotation to page 36 at (5.27 in, 7.16 in)
+2025-08-24 19:10:31,331 - INFO - Added red annotation to page 36 at (3.77 in, 7.45 in)
+2025-08-24 19:10:31,332 - INFO - Added yellow annotation to page 37 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,333 - INFO - Added yellow annotation to page 37 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,335 - INFO - Added purple annotation to page 39 at (5.27 in, 1.91 in)
+2025-08-24 19:10:31,336 - INFO - Added yellow annotation to page 39 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,338 - INFO - Added yellow annotation to page 39 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,340 - INFO - Added red annotation to page 39 at (2.27 in, 2.80 in)
+2025-08-24 19:10:31,342 - INFO - Added red annotation to page 39 at (2.27 in, 3.45 in)
+2025-08-24 19:10:31,344 - INFO - Added red annotation to page 39 at (5.27 in, 2.90 in)
+2025-08-24 19:10:31,345 - INFO - Added red annotation to page 39 at (5.27 in, 2.80 in)
+2025-08-24 19:10:31,347 - INFO - Added red annotation to page 39 at (5.27 in, 1.80 in)
+2025-08-24 19:10:31,348 - INFO - Added red annotation to page 39 at (3.77 in, 0.00 in)
+2025-08-24 19:10:31,350 - INFO - Added yellow annotation to page 41 at (2.27 in, 5.70 in)
+2025-08-24 19:10:31,351 - INFO - Added yellow annotation to page 41 at (5.27 in, 5.70 in)
+2025-08-24 19:10:31,353 - INFO - Added red annotation to page 41 at (3.77 in, 5.99 in)
+2025-08-24 19:10:31,355 - INFO - Added yellow annotation to page 42 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,357 - INFO - Added yellow annotation to page 42 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,358 - INFO - Added yellow annotation to page 43 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,360 - INFO - Added yellow annotation to page 43 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,361 - INFO - Added yellow annotation to page 44 at (3.77 in, 9.49 in)
+2025-08-24 19:10:31,363 - INFO - Added yellow annotation to page 48 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,364 - INFO - Added yellow annotation to page 48 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,366 - INFO - Added purple annotation to page 49 at (5.27 in, 1.76 in)
+2025-08-24 19:10:31,367 - INFO - Added yellow annotation to page 49 at (2.27 in, 9.49 in)
+2025-08-24 19:10:31,369 - INFO - Added yellow annotation to page 49 at (5.27 in, 9.49 in)
+2025-08-24 19:10:31,371 - INFO - Added yellow annotation to page 52 at (2.27 in, 7.74 in)
+2025-08-24 19:10:31,373 - INFO - Added yellow annotation to page 52 at (5.27 in, 7.74 in)
+2025-08-24 19:10:31,374 - INFO - Saving annotated PDF to: 02-Exodus_annotated.pdf
+2025-08-24 19:10:31,407 - INFO - PDF saved successfully
+2025-08-24 19:10:31,407 - INFO - === 02-Exodus Complete: 65 annotations added ===
+2025-08-24 19:10:31,407 - INFO - Expected counts: {'RED': 10, 'YELLOW': 45, 'PURPLE': 10, 'ORANGE': 0}
+2025-08-24 19:10:31,408 - INFO - Added counts: {'RED': 10, 'YELLOW': 45, 'PURPLE': 10, 'ORANGE': 0}
+2025-08-24 19:10:31,408 - INFO - === BATCH PROCESSING COMPLETE ===
+2025-08-24 19:10:31,408 - INFO - Successfully processed: 1
+2025-08-24 19:10:31,408 - INFO - Failed: 0

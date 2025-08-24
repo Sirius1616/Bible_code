@@ -91,10 +91,10 @@ def get_reference_value(column_name, page_side, ref_values):
     
     # Define the mapping from Excel column names to reference keys
     column_mappings = {
-        "Top Scripture Baseline Left (in)": "Top",
-        "Top Scripture Baseline Right (in)": "Top",
-        "Bottom Scripture Baseline Left (in)": "Bottom",
-        "Bottom Scripture Baseline Right (in)": "Bottom",
+        "Top Scripture Baseline Column 1 (in)": "Top",
+        "Top Scripture Baseline Column 2 (in)": "Top",
+        "Bottom Scripture Baseline Column 1 (in)": "Bottom",
+        "Bottom Scripture Baseline Column 2 (in)": "Bottom",
         "Footnote Baseline (in)": "Footnote",
         "Book Intro Baseline (in)": "Book Intro",
         "Study Note Baseline (in)": "Study Note",
@@ -104,7 +104,8 @@ def get_reference_value(column_name, page_side, ref_values):
         "Column 1 Max Width (in)": "Column 1 Max Width (in)",
         "Column 2 Max Width (in)": "Column 2 Max Width (in)",
         "Column Gap Width (in)": "Column Gap Width (in)",
-        "Box Baseline (in)": "Box Baseline"
+        "Box Baseline (in)": "Box Baseline",
+        "Subhead Baseline (in)": "Subhead Baseline (in)"
     }
     
     # Handle page-side dependent columns
@@ -143,8 +144,6 @@ def get_reference_value(column_name, page_side, ref_values):
 def is_bottom_measurement(column_name):
     """Check if a measurement is taken from the bottom of the page."""
     bottom_measurements = {
-        "Bottom Scripture Baseline Left (in)",
-        "Bottom Scripture Baseline Right (in)",
         "Bottom Scripture Baseline Column 1 (in)",
         "Bottom Scripture Baseline Column 2 (in)",
         "Footnote Baseline (in)",
@@ -170,6 +169,13 @@ def is_side_measurement(column_name):
 
 def create_comment_text(column_name, actual_value, reference_value, color_type):
     """Create the comment text for the sticky note."""
+    # Handle purple and orange specific text
+    if color_type == "PURPLE":
+        return "The two columns on this page do not align and they are not at their typical location."
+    elif color_type == "ORANGE":
+        return "This column is not aligned with the other column. The other column is in the correct position."
+    
+    # Original logic for red and yellow
     if is_bottom_measurement(column_name):
         from_position = "from the bottom"
     elif is_side_measurement(column_name):
@@ -177,53 +183,101 @@ def create_comment_text(column_name, actual_value, reference_value, color_type):
     else:
         from_position = "from the top"
     
-    comment = f"{color_type} {column_name}. Text is {actual_value} inches {from_position}. Normally text is {reference_value}"
+    if reference_value is not None:
+        comment = f"{color_type} {column_name}. Text is {actual_value} inches {from_position}. Normally text is {reference_value}"
+    else:
+        comment = f"{color_type} {column_name}. Text is {actual_value} inches {from_position}. No reference available"
     
     logging.debug(f"Created comment: '{comment}'")
     return comment
 
 # === COLOR DETECTION ===
 def is_red(cell):
+    """Check if a cell is filled with red color."""
     try:
-        return (
-            cell.fill.fill_type == 'solid' and
-            cell.fill.start_color.rgb and
-            cell.fill.start_color.rgb.upper().endswith("C7CE")
-        )
+        if cell.fill and cell.fill.fgColor and cell.fill.fgColor.rgb:
+            return cell.fill.fgColor.rgb.upper().endswith("FFC7CE")
+        return False
     except:
         return False
 
 def is_yellow(cell):
+    """Check if a cell is filled with yellow color."""
     try:
-        return (
-            cell.fill.fill_type == 'solid' and
-            cell.fill.start_color.rgb and
-            cell.fill.start_color.rgb.upper().endswith("EB9C")
-        )
+        if cell.fill and cell.fill.fgColor and cell.fill.fgColor.rgb:
+            return cell.fill.fgColor.rgb.upper().endswith("FFEB9C")
+        return False
     except:
         return False
 
-
 def is_purple(cell):
+    """Check if a cell is filled with purple color."""
     try:
-        return (
-            cell.fill.fill_type == 'solid' and
-            cell.fill.start_color.rgb and
-            cell.fill.start_color.rgb.upper().endswith("C7CE")
-        )
+        if cell.fill and cell.fill.fgColor and cell.fill.fgColor.rgb:
+            return cell.fill.fgColor.rgb.upper().endswith("E4DFEC")
+        return False
     except:
         return False
 
 def is_orange(cell):
+    """Check if a cell is filled with orange color."""
     try:
-        return (
-            cell.fill.fill_type == 'solid' and
-            cell.fill.start_color.rgb and
-            cell.fill.start_color.rgb.upper().endswith("FF8000")
-        )
+        if cell.fill and cell.fill.fgColor and cell.fill.fgColor.rgb:
+            return cell.fill.fgColor.rgb.upper().endswith("FDEADA")
+        return False
     except:
         return False
 
+def get_cell_color(cell):
+    """Determine the color of a cell and return the color type as string."""
+    if is_red(cell):
+        return "RED"
+    elif is_yellow(cell):
+        return "YELLOW"
+    elif is_purple(cell):
+        return "PURPLE"
+    elif is_orange(cell):
+        return "ORANGE"
+    return None
+
+def add_summary_annotation(doc, color_counts, added_color_counts):
+    """Add a summary annotation to the first page showing the comparison results."""
+    try:
+        summary_text = "ANNOTATION SUMMARY:\n\n"
+        all_good = True
+        missing_annotations = False
+        
+        for color in ["RED", "YELLOW", "PURPLE", "ORANGE"]:
+            expected = color_counts[color]
+            actual = added_color_counts[color]
+            
+            if expected == actual:
+                summary_text += f"{color}: All {expected} annotations written successfully\n"
+            else:
+                all_good = False
+                missing_annotations = True
+                summary_text += f"{color}: {expected} expected, {actual} written. {expected - actual} missing\n"
+        
+        if all_good:
+            summary_text = "All comments were successfully written into the PDF."
+        elif missing_annotations:
+            summary_text = "MISSING ANNOTATIONS:\n\n" + summary_text
+        
+        # Add summary to first page at top left
+        first_page = doc[0]
+        annot_rect = fitz.Rect(50, 50, 400, 200)  # Larger rectangle for summary
+        annot = first_page.add_freetext_annot(annot_rect, summary_text)
+        
+        # Set font size and colors
+        annot.set_info(title="Annotation Summary")
+        annot.update()
+        
+        logging.info(f"Added summary annotation to first page: {summary_text}")
+        return True
+        
+    except Exception as e:
+        logging.error(f"Error adding summary annotation: {e}")
+        return False
 
 def process_file_pair(file_pair, ref_values):
     """Process a single PDF/Excel file pair."""
@@ -237,8 +291,8 @@ def process_file_pair(file_pair, ref_values):
     logging.info(f"PDF: {pdf_file}")
     logging.info(f"Output: {output_pdf}")
     
-    center_x_inch = ref_values.get("Bible Text Area Center Point (in)", 3.144)
-    page_height_inches = ref_values.get("Page Height (in)", 9.25)
+    center_x_inch = ref_values.get("Bible Text Area Center Point (in)", 3.766)
+    page_height_inches = ref_values.get("Page Height (in)", 10.5)
     logging.info(f"Using center point: {center_x_inch} inches")
     logging.info(f"Using page height: {page_height_inches} inches")
     
@@ -264,6 +318,7 @@ def process_file_pair(file_pair, ref_values):
     
     paged_comments = []
     annotations_found = 0
+    color_counts = {"RED": 0, "YELLOW": 0, "PURPLE": 0, "ORANGE": 0}
     
     # Process each row
     for row_num, row in enumerate(ws.iter_rows(min_row=2), start=2):
@@ -284,30 +339,18 @@ def process_file_pair(file_pair, ref_values):
             column_name = headers.get(col_idx, f"Column {col_idx}")
             
             # Check if cell is colored
-            if is_red(cell) or is_yellow(cell) or is_purple(cell) or is_orange(cell):
-                color_type = "RED" if is_red(cell) else "YELLOW"
+            color_type = get_cell_color(cell)
+            if color_type:
                 actual_value = cell.value
+                color_counts[color_type] += 1
                 
                 logging.info(f"Found {color_type} cell: Page {page_num}, Column '{column_name}', Value: {actual_value}")
                 
                 # Get reference value
                 reference_value = get_reference_value(column_name, page_side, ref_values)
                 
-                # Create detailed comment text (with or without reference)
-                if reference_value is not None:
-                    comment_text = create_comment_text(column_name, actual_value, reference_value, color_type)
-                else:
-                    # No reference available - create annotation anyway
-                    logging.warning(f"No reference value found for '{column_name}' on {page_side} pages, creating annotation without reference")
-                    
-                    if is_bottom_measurement(column_name):
-                        from_position = "from the bottom"
-                    elif is_side_measurement(column_name):
-                        from_position = "from the side"
-                    else:
-                        from_position = "from the top"
-                    
-                    comment_text = f"{color_type} {column_name}. Text is {actual_value} inches {from_position}. No reference available"
+                # Create comment text
+                comment_text = create_comment_text(column_name, actual_value, reference_value, color_type)
                 
                 # Calculate Y position (handle bottom measurements)
                 if is_bottom_measurement(column_name):
@@ -324,13 +367,15 @@ def process_file_pair(file_pair, ref_values):
                     "y_inch": y_inch,
                     "comment": comment_text,
                     "color": color_type.lower(),
-                    "is_bottom": is_bottom_pos
+                    "is_bottom": is_bottom_pos,
+                    "column_name": column_name
                 })
                 
                 annotations_found += 1
                 logging.info(f"Added annotation #{annotations_found}: {comment_text}")
     
     logging.info(f"Total annotations prepared for {base_name}: {annotations_found}")
+    logging.info(f"Color counts: RED={color_counts['RED']}, YELLOW={color_counts['YELLOW']}, PURPLE={color_counts['PURPLE']}, ORANGE={color_counts['ORANGE']}")
     
     # === OPEN PDF AND ADD ANNOTATIONS ===
     logging.info(f"Opening PDF file: {pdf_file}")
@@ -342,6 +387,7 @@ def process_file_pair(file_pair, ref_values):
         return False
     
     annotations_added = 0
+    added_color_counts = {"RED": 0, "YELLOW": 0, "PURPLE": 0, "ORANGE": 0}
     
     # Process annotations
     for entry in paged_comments:
@@ -357,10 +403,11 @@ def process_file_pair(file_pair, ref_values):
             x_pts = center_x_inch * inch_to_pts  # Default center position
             
             # Check if comment refers to Column 1 or Column 2 and adjust X position
-            if "Column 1" in entry["comment"]:
+            column_name = entry["column_name"]
+            if "Column 1" in column_name:
                 x_pts = (center_x_inch - 1.5) * inch_to_pts
                 logging.info(f"Column 1 detected: Moving comment left 1.5 inches to {x_pts/inch_to_pts:.3f} inches")
-            elif "Column 2" in entry["comment"]:
+            elif "Column 2" in column_name:
                 x_pts = (center_x_inch + 1.5) * inch_to_pts
                 logging.info(f"Column 2 detected: Moving comment right 1.5 inches to {x_pts/inch_to_pts:.3f} inches")
             else:
@@ -387,15 +434,19 @@ def process_file_pair(file_pair, ref_values):
             annot.set_info(title="Margin Check")
             
             # Set colors based on annotation type
-            if color_type == "RED":
+            color = entry["color"]
+            if color == "red":
                 annot.set_colors(stroke=[1, 0, 0], fill=[1, 0.8, 0.8])
-            elif color_type == "YELLOW":
+                added_color_counts["RED"] += 1
+            elif color == "yellow":
                 annot.set_colors(stroke=[1, 1, 0], fill=[1, 1, 0.8])
-            elif color_type == "PURPLE":
+                added_color_counts["YELLOW"] += 1
+            elif color == "purple":
                 annot.set_colors(stroke=[0.5, 0, 0.5], fill=[0.8, 0.6, 0.8])
-            elif color_type == "ORANGE":
+                added_color_counts["PURPLE"] += 1
+            elif color == "orange":
                 annot.set_colors(stroke=[1, 0.5, 0], fill=[1, 0.8, 0.6])
-
+                added_color_counts["ORANGE"] += 1
                 
             annot.update()
             annotations_added += 1
@@ -404,6 +455,9 @@ def process_file_pair(file_pair, ref_values):
         except Exception as e:
             logging.error(f"Error adding annotation to page {entry['page_num']}: {e}")
             continue
+    
+    # Add summary annotation showing comparison between expected and actual annotations
+    add_summary_annotation(doc, color_counts, added_color_counts)
     
     # Save the PDF
     logging.info(f"Saving annotated PDF to: {output_pdf}")
@@ -416,7 +470,16 @@ def process_file_pair(file_pair, ref_values):
         return False
     
     logging.info(f"=== {base_name} Complete: {annotations_added} annotations added ===")
-    return True
+    logging.info(f"Added color counts: RED={added_color_counts['RED']}, YELLOW={added_color_counts['YELLOW']}, PURPLE={added_color_counts['PURPLE']}, ORANGE={added_color_counts['ORANGE']}")
+    
+    # Return success and the comparison results
+    comparison_results = {
+        "expected": color_counts,
+        "actual": added_color_counts,
+        "all_match": all(expected == added_color_counts[color] for color in color_counts)
+    }
+    
+    return comparison_results
 
 def main():
     """Main function."""
@@ -439,13 +502,24 @@ def main():
     # Process each file pair
     total_processed = 0
     total_failed = 0
+    comparison_results = []
     
     for file_pair in file_pairs:
         try:
-            success = process_file_pair(file_pair, ref_values)
-            if success:
+            result = process_file_pair(file_pair, ref_values)
+            if result:
                 total_processed += 1
+                comparison_results.append((file_pair['base_name'], result))
                 print(f"✓ Successfully processed: {file_pair['base_name']}")
+                
+                # Print comparison results for this file
+                print(f"  Comparison results:")
+                for color in ["RED", "YELLOW", "PURPLE", "ORANGE"]:
+                    expected = result["expected"][color]
+                    actual = result["actual"][color]
+                    status = "✓" if expected == actual else "✗"
+                    print(f"    {color}: {expected} expected, {actual} written {status}")
+                    
             else:
                 total_failed += 1
                 print(f"✗ Failed to process: {file_pair['base_name']}")
@@ -458,11 +532,35 @@ def main():
     logging.info(f"=== BATCH PROCESSING COMPLETE ===")
     logging.info(f"Successfully processed: {total_processed}")
     logging.info(f"Failed: {total_failed}")
+    
     print(f"\n=== BATCH PROCESSING COMPLETE ===")
     print(f"Successfully processed: {total_processed} files")
     print(f"Failed: {total_failed} files")
+    
+    # Print overall comparison summary
+    if comparison_results:
+        print(f"\n=== COMPARISON SUMMARY ===")
+        all_files_good = True
+        
+        for file_name, result in comparison_results:
+            file_status = "✓ ALL GOOD" if result["all_match"] else "✗ MISSING ANNOTATIONS"
+            print(f"{file_name}: {file_status}")
+            
+            if not result["all_match"]:
+                all_files_good = False
+                for color in ["RED", "YELLOW", "PURPLE", "ORANGE"]:
+                    expected = result["expected"][color]
+                    actual = result["actual"][color]
+                    if expected != actual:
+                        print(f"  {color}: {expected} expected, {actual} written ({expected - actual} missing)")
+        
+        if all_files_good:
+            print("All annotations were successfully written for all files!")
+        else:
+            print("Some annotations were missing from one or more files.")
+    
     if total_processed > 0:
-        print(f"Annotated PDFs saved with '_annotated' suffix")
+        print(f"\nAnnotated PDFs saved with '_annotated' suffix")
 
 if __name__ == "__main__":
     main()

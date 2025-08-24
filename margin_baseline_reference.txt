@@ -1,0 +1,20 @@
+Top: 1.472
+Bottom: 1.299
+Running Head: 1.129
+Page Number: 10.417
+Footnote: 0.997
+Article: 3.861
+# of Columns: 2
+Bible Text Area Center Point (in): 3.766
+Left Pages - Column 1 Left Edge (in): 1.125
+Right Pages - Column 1 Left Edge (in): 1.25
+Left Pages - Column 1 Right Edge (in): 3.85
+Right Pages - Column 1 Right Edge (in): 3.725
+Left Pages - Column 2 Left Edge (in): 3.757
+Right Pages - Column 2 Left Edge (in): 3.882
+Left Pages - Column 2 Right Edge (in): 1.218
+Right Pages - Column 2 Right Edge (in): 1.093
+Column 1 Max Width (in): 2.525
+Column 2 Max Width (in): 2.525
+Column Gap Width (in): 0.107
+Column Width (in): 2.525

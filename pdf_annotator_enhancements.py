@@ -373,4 +373,4 @@ def main():
         print(f"Annotated PDFs saved with '_annotated' suffix")
 
 if __name__ == "__main__":
-    main()
+    main().

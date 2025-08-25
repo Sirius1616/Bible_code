@@ -66,8 +66,9 @@ def make_human_readable(text: str) -> str:
 def process_text_content(text, book_name):
     """Process text content and extract verses"""
     verses = []
-    verse_pattern = r'(\d+):(\d+)\s+(.*?)(?=\d+:\d+|$)'
-    matches = re.findall(verse_pattern, text)
+    verse_pattern = r'(\d+):(\d+)\s+(.*?)(?=\s*\d+:\d+|$)'
+    matches = re.findall(verse_pattern, text, flags=re.DOTALL)
+
 
     for match in matches:
         chapter, verse, verse_text = match

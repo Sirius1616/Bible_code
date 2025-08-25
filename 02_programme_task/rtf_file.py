@@ -65,12 +65,17 @@ def process_text_content(text, book_name):
     matches = re.findall(verse_pattern, text)
     for match in matches:
         chapter, verse, verse_text = match
+
+        # Clean up verse number (strip trailing junk like "16")
+        verse = re.sub(r"16$", "", verse)
+
         verses.append({
             CONFIG["REFERENCE_HEADER"]: f"{book_name} {chapter}:{verse}",
             CONFIG["TEXT_HEADER"]: verse_text.strip()
         })
 
     return verses
+
 
 def prepare_input_dir():
     """Copy all RTF files from file_to_process into rtf_in"""

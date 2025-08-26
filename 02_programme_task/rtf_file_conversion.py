@@ -46,6 +46,12 @@ def clean_rtf_content(rtf_content):
     text = re.sub(r'[{}]', '', text)
     text = re.sub(r'\\\'[0-9a-fA-F]{2}', ' ', text)
     
+    # Remove specific problematic patterns that cause -840 artifacts
+    text = re.sub(r'\\lang\d+', '', text)
+    text = re.sub(r'\\langfe\d+', '', text)
+    text = re.sub(r'\\cxp\d+', '', text)
+    text = re.sub(r'\\cxds\d+', '', text)
+    
     # Remove any remaining non-printable characters
     text = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', text)
     
@@ -109,10 +115,14 @@ def clean_verse_text(text):
     # Remove asterisk patterns (but be careful with footnote markers)
     text = re.sub(r'\*\s*', ' ', text)
     
-    # Remove RTF footnote markers (like \super \nosupersub etc.)
-    text = re.sub(r'\\super\s*|\\nosupersub\s*', '', text, flags=re.IGNORECASE)
+    # Remove RTF footnote markers and specific control characters that cause -840
+    text = re.sub(r'\\super\s*|\\nosupersub\s*|\\lang\d+|\\langfe\d+', '', text, flags=re.IGNORECASE)
     
-    # Remove footnote numbers that are standalone (like "1" but not "a" or "b")
+    # Remove -840 and similar artifacts specifically
+    text = re.sub(r'-\d{2,4}', '', text)  # Remove -840, -123, etc.
+    text = re.sub(r'\s\d{2,4}\s', ' ', text)  # Remove standalone numbers like 840
+    
+    # Remove footnote numbers that are standalone
     text = re.sub(r'\s\d+\s', ' ', text)  # Standalone numbers with spaces
     text = re.sub(r'\s\d+$', '', text)    # Numbers at end
     text = re.sub(r'^\d+\s', '', text)    # Numbers at beginning
@@ -176,6 +186,8 @@ def clean_first_verse(text):
     text = re.sub(r'^(\\|{|}|pard|plain|fs\d+|\s)*', '', text, flags=re.IGNORECASE)
     # Remove any numbers at the beginning
     text = re.sub(r'^\d+\s*', '', text)
+    # Remove -840 specifically from beginning
+    text = re.sub(r'^-\d+\s*', '', text)
     return text.strip()
 
 def process_file(filepath):
@@ -218,7 +230,13 @@ def process_file(filepath):
         return None
 
 def final_text_cleanup(text):
-    """Final cleanup of verse text - be very careful with word boundaries"""
+    """Final cleanup of verse text - targeted removal of -840 artifacts"""
+    # First, aggressively remove all -840 patterns
+    text = re.sub(r'-\d{2,4}', '', text)  # Remove -840, -123, etc.
+    text = re.sub(r'\s\d{2,4}\s', ' ', text)  # Remove standalone numbers
+    text = re.sub(r'\s\d{2,4}$', '', text)  # Remove numbers at end
+    text = re.sub(r'^\d{2,4}\s', '', text)  # Remove numbers at beginning
+    
     # Remove any remaining special characters but preserve letters and punctuation
     text = re.sub(r'[^a-zA-Z0-9\s.,;:!?\'"()-]', '', text)
     

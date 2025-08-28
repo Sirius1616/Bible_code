@@ -1,0 +1,8 @@
+2025-08-24 23:59:25,585 - INFO - === PDF Margin Annotator Extended Started ===
+2025-08-24 23:59:25,585 - INFO - Log file: logs/pdf_margin_annotator_extended_20250824_235925.log
+2025-08-24 23:59:25,586 - INFO - Loading reference values from: margin_baseline_reference.txt
+2025-08-24 23:59:25,586 - INFO - Loaded 20 reference values
+2025-08-24 23:59:25,587 - INFO - Found pair: 02-Exodus.pdf + 02-Exodus.xlsx
+2025-08-24 23:59:25,587 - WARNING - PDF found but no matching Excel file: 02-Exodus_annotated.pdf
+2025-08-24 23:59:25,587 - INFO - === Processing 02-Exodus ===
+2025-08-24 23:59:25,634 - INFO - === 02-Exodus Complete: 0 annotations added ===

@@ -1,0 +1,8 @@
+2025-08-25 01:33:35,489 - INFO - === PDF Margin Annotator Extended Started ===
+2025-08-25 01:33:35,490 - INFO - Log file: logs/pdf_margin_annotator_extended_20250825_013335.log
+2025-08-25 01:33:35,490 - INFO - Loading reference values from: margin_baseline_reference.txt
+2025-08-25 01:33:35,491 - INFO - Loaded 20 reference values
+2025-08-25 01:33:35,492 - INFO - Found pair: 02-Exodus.pdf + 02-Exodus.xlsx
+2025-08-25 01:33:35,492 - INFO - === Processing 02-Exodus ===
+2025-08-25 01:33:35,504 - INFO - Total annotations prepared: 76
+2025-08-25 01:33:35,506 - INFO - Excel color counts: {'RED': 10, 'YELLOW': 45, 'ORANGE': 11, 'PURPLE': 10}

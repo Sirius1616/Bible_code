@@ -1,0 +1,7 @@
+2025-08-24 23:47:46,170 - INFO - === PDF Margin Annotator Started ===
+2025-08-24 23:47:46,170 - INFO - Log file: logs/pdf_margin_annotator_20250824_234746.log
+2025-08-24 23:47:46,171 - INFO - Found pair: 02-Exodus.pdf + 02-Exodus.xlsx -> 02-Exodus_annotated.pdf
+2025-08-24 23:47:46,171 - WARNING - PDF found but no matching Excel file: 02-Exodus_annotated.pdf
+2025-08-24 23:47:46,171 - INFO - === Processing 02-Exodus ===
+2025-08-24 23:47:46,214 - INFO - Saved annotated PDF: 02-Exodus_annotated.pdf (0 annotations added)
+2025-08-24 23:47:46,215 - INFO - BATCH COMPLETE: 1 success, 0 failed

@@ -307,7 +307,7 @@ def main():
             # Add to combined dataset
             all_verses.extend(verses)
     
-    # Save combined file with all books.
+    # Save combined file with all books
     if all_verses:
         combined_df = pd.DataFrame(all_verses)
         combined_output = os.path.join(CONFIG["OUTPUT_DIR"], "ALL_BOOKS.xlsx")

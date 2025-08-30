@@ -305,7 +305,7 @@ def main():
             print(f"Saved {len(verses)} verses to {output_filename}")
             
             # Add to combined dataset
-            all_verses.extend(verses)
+            all_verses.extend(verses).
     
     # Save combined file with all books
     if all_verses:

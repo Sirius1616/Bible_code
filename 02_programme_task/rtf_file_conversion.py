@@ -315,5 +315,4 @@ def main():
         print(f"Saved combined file with {len(all_verses)} verses to ALL_BOOKS.xlsx")
 
 if __name__ == "__main__":
-    return prepare_input_dir()
     main().

@@ -314,5 +314,5 @@ def main():
         combined_df.to_excel(combined_output, index=False, engine='openpyxl')
         print(f"Saved combined file with {len(all_verses)} verses to ALL_BOOKS.xlsx")
 
-if __name__ == "__main__":asdfghjkljhg
+if __name__ == "__main__":
     main()

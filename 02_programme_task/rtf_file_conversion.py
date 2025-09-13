@@ -273,7 +273,7 @@ def final_text_cleanup(text):
     return text.strip()
 
 def prepare_input_dir():
-    source_dir = CONFIG["SOURCE_DIR"]
+    source_dir = CONFIG["SOURCE_"]
     target_dir = CONFIG["INPUT_DIR"]
     os.makedirs(target_dir, exist_ok=True)
     for filepath in glob.glob(os.path.join(source_dir, "*.rtf")):

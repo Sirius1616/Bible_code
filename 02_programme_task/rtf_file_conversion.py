@@ -291,7 +291,7 @@ def main():
         print(f"No RTF files found in {CONFIG['INPUT_DIR']}")
         return
 
-    all_verses = []
+    all_verses = 
     
     for filepath in rtf_files:
         verses = process_file(filepath)

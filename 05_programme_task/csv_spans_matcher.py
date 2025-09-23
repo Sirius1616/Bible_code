@@ -3,6 +3,7 @@
 import csv
 import os
 import pandas as pd
+import re
 
 
 def clean_subhead_file(raw_file, cleaned_file):
@@ -48,7 +49,50 @@ def normalize_apostrophes(text: str) -> str:
     return text.replace("’", "'").replace("‘", "'").strip()
 
 
-def match_subheads_with_spans(cleaned_file, span_file, output_file):
+def load_standards(standards_file):
+    """Read Standards.txt and return list of acceptable coords + variance"""
+    standards = []
+    variance = 0.0
+    with open(standards_file, "r", encoding="utf-8") as f:
+        lines = [line.strip() for line in f if line.strip()]
+
+    in_coords = False
+    for line in lines:
+        if line.startswith("Acceptable X Coordiantes"):
+            in_coords = True
+            continue
+        if line.startswith("Acceptable Variance allowed"):
+            in_coords = False
+            continue
+        if in_coords:
+            try:
+                standards.append(float(line))
+            except ValueError:
+                pass
+        if line.startswith("Acceptable Variance allowed"):
+            # extract number from "Acceptable Variance allowed +/- 0.3"
+            match = re.search(r"([0-9]*\.?[0-9]+)", line)
+            if match:
+                variance = float(match.group(1))
+
+    print(f"📏 Loaded Standards: {standards} with variance ±{variance}")
+    return standards, variance
+
+
+def check_within_standards(x_coord, standards, variance):
+    """Check if x_coord is within variance of any standard value"""
+    try:
+        val = float(x_coord)
+    except (ValueError, TypeError):
+        return "ERROR"
+
+    for std in standards:
+        if std - variance <= val <= std + variance:
+            return "YES"
+    return "ERROR"
+
+
+def match_subheads_with_spans(cleaned_file, span_file, output_file, standards, variance):
     """Match cleaned subheads with span contents from Excel"""
     spans_df = pd.read_excel(span_file)
     spans = spans_df.to_dict(orient="records")
@@ -57,7 +101,7 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
          open(output_file, "w", newline="", encoding="utf-8") as outfile:
 
         reader = csv.DictReader(infile)
-        fieldnames = ["Reference", "Subhead", "Match Status", "X-Coord", "Page", "Even/Odd"]
+        fieldnames = ["Reference", "Subhead", "Match Status", "X-Coord", "Page", "Even/Odd", "Location"]
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
 
@@ -80,13 +124,29 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
                     page_num = ""
                     even_odd = ""
 
+                x_coord_raw = match.get("Span Position (bbox)", "")
+                # extract first value from tuple string
+                first_val = ""
+                if isinstance(x_coord_raw, str) and x_coord_raw.startswith("("):
+                    try:
+                        first_val = float(x_coord_raw.strip("()").split(",")[0])
+                    except Exception:
+                        first_val = ""
+                elif isinstance(x_coord_raw, (tuple, list)):
+                    first_val = x_coord_raw[0] if x_coord_raw else ""
+                else:
+                    first_val = x_coord_raw
+
+                location = check_within_standards(first_val, standards, variance)
+
                 writer.writerow({
                     "Reference": row["Reference"],
                     "Subhead": row["Subhead"],  # keep original for clarity
                     "Match Status": "MATCH",
-                    "X-Coord": match.get("Span Position (bbox)", ""),
+                    "X-Coord": x_coord_raw,
                     "Page": page_num,
-                    "Even/Odd": even_odd
+                    "Even/Odd": even_odd,
+                    "Location": location
                 })
             else:
                 writer.writerow({
@@ -95,7 +155,8 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
                     "Match Status": "COULD NOT MATCH",
                     "X-Coord": "",
                     "Page": "",
-                    "Even/Odd": ""
+                    "Even/Odd": "",
+                    "Location": "ERROR"
                 })
 
     print(f"✅ Matching done. Output saved as: {output_file}")
@@ -104,6 +165,13 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
 if __name__ == "__main__":
     folder = "."  # current folder
     files = os.listdir(folder)
+
+    # load standards
+    standards_file = os.path.join(folder, "Standards.txt")
+    if not os.path.exists(standards_file):
+        print("❌ Standards.txt not found in folder. Exiting.")
+        exit(1)
+    standards, variance = load_standards(standards_file)
 
     # find all subhead CSVs (skip already cleaned or matched files)
     subhead_files = [
@@ -132,4 +200,4 @@ if __name__ == "__main__":
             # Run cleaning and matching
             clean_subhead_file(subhead_file, cleaned_file)
             if os.path.exists(cleaned_file):
-                match_subheads_with_spans(cleaned_file, span_file, output_file)
+                match_subheads_with_spans(cleaned_file, span_file, output_file, standards, variance)

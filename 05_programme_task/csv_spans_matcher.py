@@ -4,8 +4,13 @@ import csv
 import os
 import pandas as pd
 
+
 def clean_subhead_file(raw_file, cleaned_file):
     """Split merged Reference+Subhead into two columns"""
+    if os.path.exists(cleaned_file):
+        print(f"⚠️ Cleaned file already exists, skipping: {cleaned_file}")
+        return
+
     with open(raw_file, "r", newline="", encoding="utf-8") as infile, \
          open(cleaned_file, "w", newline="", encoding="utf-8") as outfile:
 
@@ -14,7 +19,12 @@ def clean_subhead_file(raw_file, cleaned_file):
 
         writer.writerow(["Reference", "Subhead"])  # new header
 
-        next(reader)  # skip the original header
+        try:
+            next(reader)  # skip the original header
+        except StopIteration:
+            print(f"⚠️ {raw_file} is empty or already cleaned, skipping.")
+            return
+
         for row in reader:
             if not row:
                 continue
@@ -31,6 +41,13 @@ def clean_subhead_file(raw_file, cleaned_file):
     print(f"✅ Cleaned file saved as: {cleaned_file}")
 
 
+def normalize_apostrophes(text: str) -> str:
+    """Normalize straight and curly apostrophes for reliable matching."""
+    if not isinstance(text, str):
+        return ""
+    return text.replace("’", "'").replace("‘", "'").strip()
+
+
 def match_subheads_with_spans(cleaned_file, span_file, output_file):
     """Match cleaned subheads with span contents from Excel"""
     spans_df = pd.read_excel(span_file)
@@ -45,24 +62,31 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
         writer.writeheader()
 
         for row in reader:
-            subhead = row["Subhead"].strip()
+            subhead = normalize_apostrophes(row["Subhead"])
             match = None
 
             for span in spans:
-                span_text = str(span.get("Span Content", "")).strip()
+                span_text = normalize_apostrophes(str(span.get("Span Content", "")))
                 if span_text == subhead:
                     match = span
                     break
 
             if match:
-                page = match.get("Page Number", "")
+                page_raw = match.get("Page Number", "")
+                try:
+                    page_num = int(float(page_raw))  # handles 1, "1", 1.0, "1.0"
+                    even_odd = "EVEN" if page_num % 2 == 0 else "ODD"
+                except (ValueError, TypeError):
+                    page_num = ""
+                    even_odd = ""
+
                 writer.writerow({
                     "Reference": row["Reference"],
-                    "Subhead": row["Subhead"],
+                    "Subhead": row["Subhead"],  # keep original for clarity
                     "Match Status": "MATCH",
                     "X-Coord": match.get("Span Position (bbox)", ""),
-                    "Page": page,
-                    "Even/Odd": "EVEN" if str(page).isdigit() and int(page) % 2 == 0 else "ODD"
+                    "Page": page_num,
+                    "Even/Odd": even_odd
                 })
             else:
                 writer.writerow({
@@ -81,28 +105,31 @@ if __name__ == "__main__":
     folder = "."  # current folder
     files = os.listdir(folder)
 
-    # find all subhead CSVs
-    subhead_files = [f for f in files if f.endswith(".csv") and "subhead" in f and not f.startswith("matched")]
+    # find all subhead CSVs (skip already cleaned or matched files)
+    subhead_files = [
+        f for f in files
+        if f.endswith(".csv")
+        and "subhead" in f
+        and not f.startswith("matched")
+        and not f.endswith("_clean.csv")
+    ]
 
-    for subhead_file in subhead_files:
-        prefix = subhead_file.split("_subhead")[0]  # e.g., "01-Genesis"
-        span_file_candidates = [f for f in files if f.startswith(prefix) and f.endswith("_all_spans.xlsx")]
+    if not subhead_files:
+        print("⚠️ No new raw subhead files found. Nothing to process.")
+    else:
+        for subhead_file in subhead_files:
+            prefix = subhead_file[:3]  # e.g., "01-Genesis"
+            span_file_candidates = [f for f in files if f.startswith(prefix) and "_all_spans" in f]
 
-        if not span_file_candidates:
-            print(f"❌ No span file found for {subhead_file}, skipping.")
-            continue
+            if not span_file_candidates:
+                print(f"❌ No span file found for {subhead_file}, skipping.")
+                continue
 
-        span_file = span_file_candidates[0]
-        cleaned_file = f"{prefix}_subhead_clean.csv"
-        output_file = f"matched_{subhead_file}"
+            span_file = span_file_candidates[0]
+            cleaned_file = f"{prefix}_subhead_clean.csv"
+            output_file = f"matched_{subhead_file}"
 
-        # Run cleaning and matching
-        clean_subhead_file(subhead_file, cleaned_file)
-        match_subheads_with_spans(cleaned_file, span_file, output_file)
-
-
-
-
-
-    
-  
+            # Run cleaning and matching
+            clean_subhead_file(subhead_file, cleaned_file)
+            if os.path.exists(cleaned_file):
+                match_subheads_with_spans(cleaned_file, span_file, output_file)

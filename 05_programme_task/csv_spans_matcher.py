@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
             span_file = span_file_candidates[0]
             cleaned_file = f"{prefix}_subhead_clean.csv"
-            output_file = f"matched_{subhead_file}"
+            output_file = f"matched_{subhead_file}
 
             clean_subhead_file(subhead_file, cleaned_file)
             if os.path.exists(cleaned_file):

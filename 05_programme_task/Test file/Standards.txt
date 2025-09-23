@@ -1,0 +1,11 @@
+STANDARDS
+
+Acceptable X Coordiantes
+17.00
+198.5
+209.9
+28.3
+
+
+Acceptable Variance allowed +/-
+.3

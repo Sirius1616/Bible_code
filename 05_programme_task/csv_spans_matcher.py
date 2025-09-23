@@ -71,7 +71,7 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
                     "Match Status": "COULD NOT MATCH",
                     "X-Coord": "",
                     "Page": "",
-                    "Even/Odd": ""
+                    "Even/Odd": 
                 })
 
     print(f"✅ Matching done. Output saved as: {output_file}")

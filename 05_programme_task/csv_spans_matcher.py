@@ -74,7 +74,7 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file):
                     "Even/Odd": ""
                 })
 
-    print(f"✅ Matching done. Output saved as: 
+    print(f"✅ Matching done. Output saved as: {output_file}")
 
 
 if __name__ == "__main__":

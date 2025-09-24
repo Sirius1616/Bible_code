@@ -89,7 +89,7 @@ def load_standards(standards_file):
     return acceptable_coords, variance
 
 
-def check_location(x_coord, acceptable_coords, variance):
+def check_message(x_coord, acceptable_coords, variance):
     """Return YES if within acceptable ± variance, else MISALIGNED"""
     if not x_coord:
         return "MISALIGNED"
@@ -142,7 +142,7 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file, standards_fi
                     even_odd = ""
 
                 x_coord = match.get("Span Position (bbox)", "")
-                location_status = check_location(x_coord, acceptable_coords, variance)
+                message_status = check_message(x_coord, acceptable_coords, variance)
 
                 results.append({
                     "Reference": row["Reference"],
@@ -151,7 +151,7 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file, standards_fi
                     "X-Coord": x_coord,
                     "Page": page_num,
                     "Even/Odd": even_odd,
-                    "Location": location_status
+                    "Message": message_status
                 })
             else:
                 results.append({
@@ -161,21 +161,21 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file, standards_fi
                     "X-Coord": "",
                     "Page": "",
                     "Even/Odd": "",
-                    "Location": "MISALIGNED"
+                    "Message": "COULD NOT MATCH"
                 })
 
     # Reorder: misaligned/error first
     errors_first = [
-        r for r in results if r["Match Status"] == "COULD NOT MATCH" or r["Location"] == "MISALIGNED"
+        r for r in results if r["Match Status"] == "COULD NOT MATCH" or r["Message"] == "MISALIGNED"
     ]
     matches_after = [
-        r for r in results if not (r["Match Status"] == "COULD NOT MATCH" or r["Location"] == "MISALIGNED")
+        r for r in results if not (r["Match Status"] == "COULD NOT MATCH" or r["Message"] == "MISALIGNED")
     ]
     ordered_results = errors_first + matches_after
 
     # Write output
     with open(output_file, "w", newline="", encoding="utf-8") as outfile:
-        fieldnames = ["Reference", "Subhead", "Match Status", "X-Coord", "Page", "Even/Odd", "Location"]
+        fieldnames = ["Reference", "Subhead", "Match Status", "X-Coord", "Page", "Even/Odd", "Message"]
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(ordered_results)

@@ -1,248 +1,361 @@
-#!/usr/bin/env python3
-"""
-Bible Verse Reference Finder
+#!/usr/bin/env python
+# 30_subheadfinder_auto.py
 
-This script processes an Excel file containing typesetting data for Genesis
-and matches scripture phrases to their exact verse references.
-"""
-
-import pandas as pd
+import os
 import re
-from typing import Dict, List, Tuple, Optional
-import ast
+from openpyxl import load_workbook
+import csv
 
-
-def parse_bbox(bbox_str: str) -> Tuple[float, float, float, float]:
-    """Parse bounding box string into coordinates (x0, y0, x1, y1)."""
-    try:
-        # Handle string representation of tuple
-        if isinstance(bbox_str, str):
-            # Remove any whitespace and evaluate the string as a Python tuple
-            bbox = ast.literal_eval(bbox_str.strip())
-        else:
-            bbox = bbox_str
-        
-        return tuple(map(float, bbox))
-    except (ValueError, SyntaxError, TypeError):
-        # Return a default bbox if parsing fails
-        return (0.0, 0.0, 0.0, 0.0)
-
-
-def sort_by_reading_order(df: pd.DataFrame) -> pd.DataFrame:
-    """Sort dataframe by reading order: top to bottom, then left to right."""
-    # Parse bounding boxes and create sort columns
-    df = df.copy()
-    df['bbox_parsed'] = df['Span Position (bbox)'].apply(parse_bbox)
-    df['y0'] = df['bbox_parsed'].apply(lambda x: x[1])  # top coordinate
-    df['x0'] = df['bbox_parsed'].apply(lambda x: x[0])  # left coordinate
+def clean_text_content(text):
+    """Clean text while preserving apostrophes and quotation marks"""
+    if not text:
+        return ""
     
-    # Sort by y0 (top) first, then x0 (left)
-    df_sorted = df.sort_values(['y0', 'x0'], ascending=[False, True])  # y decreases as we go down
+    # PRESERVE APOSTROPHES - don't remove them!
+    # Keep all types of apostrophes and quotes: ' \u2018 \u2019 \u0027 \u0060 \u00B4 \u02BC \u2032 \u055A \u05F3 \uFF07
+    # Only remove truly problematic characters
+    text = re.sub(r'[^\w\s\-–—:;,.!?()\'\u2018\u2019\u0027\u0060\u00B4\u02BC\u2032\u055A\u05F3\uFF07]', '', text)
+    # Normalize whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+def normalize_apostrophes(text):
+    """Normalize all types of apostrophes to a standard form for matching"""
+    if not text:
+        return ""
     
-    return df_sorted
+    # Convert all apostrophe variants to standard ASCII apostrophe
+    apostrophe_variants = ['\u2018', '\u2019', '\u0027', '\u0060', '\u00B4', '\u02BC', '\u2032', '\u055A', '\u05F3', '\uFF07']
+    for variant in apostrophe_variants:
+        text = text.replace(variant, "'")
+    
+    return text
 
+def load_txt_subheads(txt_file_path):
+    """Load subhead titles from TXT file and clean them"""
+    with open(txt_file_path, 'r', encoding='utf-8') as file:
+        subheads = [line.strip() for line in file if line.strip()]
+        return [clean_text_content(subhead) for subhead in subheads]
 
-def reconstruct_verses_from_excel(excel_path: str) -> Dict[str, str]:
+def extract_xlsx_structure(xlsx_file_path):
     """
-    Reconstruct complete verses from Excel typesetting data.
-    
-    Returns:
-        Dict mapping verse references (e.g., "1:2") to complete verse text
+    Extract the complete structure from XLSX file with proper text cleaning
     """
-    print(f"Reading Excel file: {excel_path}")
+    wb = load_workbook(xlsx_file_path)
+    ws = wb.active
     
-    # Read the Excel file
-    try:
-        df = pd.read_excel(excel_path)
-        print(f"Loaded {len(df)} rows from Excel file")
-    except Exception as e:
-        print(f"Error reading Excel file: {e}")
-        return {}
+    subheads = []  # (cleaned_text, row_number, original_text)
+    verses = []    # (reference, verse_text, row_number)
+    chapters = []  # (chapter_number, row_number)
     
-    # Display column names for debugging
-    print("Column names:")
-    for i, col in enumerate(df.columns):
-        print(f"  {i}: '{col}'")
+    # Extract book name from filename (more flexible matching)
+    filename = os.path.basename(xlsx_file_path)
+    # Look for book name pattern (number followed by text)
+    book_match = re.search(r'(?:^|\D)(\d+)[-\s]*([A-Za-z]+)', filename)
+    if book_match:
+        current_book = book_match.group(2)
+    else:
+        current_book = "Unknown"  # Fallback using original logic
     
-    # Check if required columns exist
-    required_columns = ['Text Category', 'Span Content', 'Span Position (bbox)']
-    missing_columns = [col for col in required_columns if col not in df.columns]
+    current_chapter = "1"
+    current_verse = None
+    verse_text_parts = []
+    row_number = 0
     
-    if missing_columns:
-        print(f"Error: Missing required columns: {missing_columns}")
-        return {}
-    
-    # Sort by reading order
-    df_sorted = sort_by_reading_order(df)
-    
-    # Extract verses
-    verses = {}
-    current_chapter = 1  # Default to chapter 1
-    current_verse_num = None
-    current_verse_text = []
-    
-    print("\nProcessing rows to reconstruct verses...")
-    
-    for idx, row in df_sorted.iterrows():
-        text_category = str(row['Text Category']).strip()
-        span_content = str(row['Span Content']).strip()
-        
-        # Skip empty content
-        if not span_content or span_content == 'nan':
+    for row in ws.iter_rows(values_only=True):
+        row_number += 1
+        if not row or row[1] is None:
             continue
             
-        # Check for chapter numbers
-        if text_category == "CHAPTER NUMBERS":
-            try:
-                current_chapter = int(span_content)
-                print(f"Found chapter: {current_chapter}")
-            except ValueError:
-                pass
+        row_type = str(row[1])
+        content = str(row[2]) if len(row) > 2 and row[2] is not None else ""
         
-        # Check for verse numbers
-        elif text_category == "VERSE NUMBERS":
-            # Save previous verse if we have one
-            if current_verse_num is not None and current_verse_text:
-                verse_ref = f"{current_chapter}:{current_verse_num}"
-                verse_text = ' '.join(current_verse_text).strip()
-                verses[verse_ref] = verse_text
-                print(f"Saved verse {verse_ref}: {verse_text[:50]}...")
+        # SUBHEAD DETECTION
+        if "SUBHEAD" in row_type and content:
+            cleaned_content = clean_text_content(content)
+            if cleaned_content:
+                subheads.append((cleaned_content, row_number, content))  # Store both cleaned and original
+        
+        # CHAPTER DETECTION  
+        elif "CHAPTER NUMBERS" in row_type and content.strip():
+            # Extract chapter number
+            chapter_match = ''.join(c for c in content if c.isdigit())
+            if chapter_match:
+                current_chapter = chapter_match
+                chapters.append((current_chapter, row_number))
+        
+        # VERSE NUMBER DETECTION
+        elif "VERSE NUMBERS" in row_type and content.strip():
+            # Save previous verse if exists
+            if current_verse is not None and verse_text_parts:
+                full_text = " ".join(verse_text_parts).strip()
+                if full_text:
+                    reference = f"{current_book} {current_chapter}:{current_verse}"
+                    verses.append((reference, full_text, row_number))
             
             # Start new verse
-            try:
-                current_verse_num = int(span_content)
-                current_verse_text = []
-            except ValueError:
-                print(f"Warning: Could not parse verse number: '{span_content}'")
+            verse_match = ''.join(c for c in content if c.isdigit())
+            if verse_match:
+                current_verse = verse_match
+            verse_text_parts = []
         
-        # Collect scripture text
-        elif text_category == "SCRIPTURE TEXT FONTS":
-            if current_verse_num is not None:
-                current_verse_text.append(span_content)
+        # VERSE TEXT DETECTION
+        elif "SCRIPTURE TEXT" in row_type and content and content not in ['""', '']:
+            clean_content = content.replace('"', '').replace('""', '').strip()
+            if clean_content:
+                verse_text_parts.append(clean_content)
     
-    # Don't forget the last verse
-    if current_verse_num is not None and current_verse_text:
-        verse_ref = f"{current_chapter}:{current_verse_num}"
-        verse_text = ' '.join(current_verse_text).strip()
-        verses[verse_ref] = verse_text
-        print(f"Saved final verse {verse_ref}: {verse_text[:50]}...")
+    # Add the last verse
+    if current_verse is not None and verse_text_parts:
+        full_text = " ".join(verse_text_parts).strip()
+        if full_text:
+            reference = f"{current_book} {current_chapter}:{current_verse}"
+            verses.append((reference, full_text, row_number))
     
-    print(f"\nReconstructed {len(verses)} verses")
-    return verses
+    return subheads, verses, chapters
 
+def find_verse_after_subhead(subhead_row, verses):
+    """Find the first verse that comes after a subhead"""
+    for ref, text, verse_row in verses:
+        if verse_row > subhead_row:
+            return ref, text
+    return None, None
 
-def load_phrases_from_txt(txt_path: str) -> List[str]:
-    """Load phrases from text file, one per line."""
-    print(f"\nReading phrases from: {txt_path}")
-    
-    try:
-        with open(txt_path, 'r', encoding='utf-8') as f:
-            phrases = [line.strip() for line in f if line.strip()]
-        print(f"Loaded {len(phrases)} phrases")
-        return phrases
-    except Exception as e:
-        print(f"Error reading text file: {e}")
-        return []
-
-
-def find_phrase_matches(phrases: List[str], verses: Dict[str, str]) -> List[Tuple[str, str]]:
-    """
-    Find which verse each phrase comes from.
-    
-    Returns:
-        List of (reference, phrase) tuples. Reference is "NOT_FOUND" if no match.
-    """
-    print(f"\nMatching {len(phrases)} phrases against {len(verses)} verses...")
-    
+def match_subheads_to_verses(subhead_phrases, subheads, verses):
+    """Match subhead titles to the verses that follow them with fuzzy matching"""
     results = []
-    found_count = 0
+    not_found = []
     
-    for phrase in phrases:
-        found_match = False
-        
-        # Search through all verses
-        for verse_ref, verse_text in verses.items():
-            if phrase in verse_text:
-                results.append((f"Genesis {verse_ref}", phrase))
-                found_match = True
-                found_count += 1
-                print(f"Found match: '{phrase}' in Genesis {verse_ref}")
-                break
-        
-        if not found_match:
-            results.append(("NOT_FOUND", phrase))
-            print(f"No match found for: '{phrase}'")
+    # Create mappings for both cleaned and original subhead text with normalized apostrophes
+    subhead_clean_map = {}  # cleaned text -> (row_number, original_text)
+    subhead_normalized_map = {}  # normalized text (apostrophes standardized) -> (row_number, original_text)
+    subhead_original_map = {}  # original text -> row_number
     
-    print(f"\nMatching complete: {found_count}/{len(phrases)} phrases matched")
-    return results
+    for cleaned_text, row_num, original_text in subheads:
+        subhead_clean_map[cleaned_text] = (row_num, original_text)
+        subhead_original_map[original_text] = row_num
+        
+        # Create normalized version for apostrophe-insensitive matching
+        normalized_text = normalize_apostrophes(cleaned_text)
+        if normalized_text not in subhead_normalized_map:
+            subhead_normalized_map[normalized_text] = []
+        subhead_normalized_map[normalized_text].append((row_num, original_text))
+    
+    for subhead_phrase in subhead_phrases:
+        cleaned_phrase = clean_text_content(subhead_phrase)
+        normalized_phrase = normalize_apostrophes(cleaned_phrase)
+        found = False
+        
+        # Strategy 1: Try exact match with cleaned text first
+        if cleaned_phrase in subhead_clean_map:
+            row_num, original_text = subhead_clean_map[cleaned_phrase]
+            verse_ref, verse_text = find_verse_after_subhead(row_num, verses)
+            
+            if verse_ref:
+                results.append({
+                    'reference': verse_ref,
+                    'subhead': subhead_phrase,
+                    'original_xlsx_subhead': original_text
+                })
+                found = True
+        
+        # Strategy 2: Try normalized apostrophe matching
+        if not found and normalized_phrase in subhead_normalized_map:
+            matches = subhead_normalized_map[normalized_phrase]
+            # Use the first match (should be sufficient for most cases)
+            row_num, original_text = matches[0]
+            verse_ref, verse_text = find_verse_after_subhead(row_num, verses)
+            
+            if verse_ref:
+                results.append({
+                    'reference': verse_ref,
+                    'subhead': subhead_phrase,
+                    'original_xlsx_subhead': original_text
+                })
+                found = True
+        
+        # Strategy 3: If not found, try fuzzy matching with normalized text
+        if not found:
+            best_match = None
+            best_score = 0
+            
+            for normalized_text, matches in subhead_normalized_map.items():
+                # Check if the normalized phrases are similar
+                if (normalized_phrase in normalized_text or normalized_text in normalized_phrase):
+                    similarity = len(set(normalized_phrase.split()) & set(normalized_text.split())) / max(len(normalized_phrase.split()), len(normalized_text.split()))
+                    if similarity > 0.7:  # 70% similarity threshold
+                        row_num, original_text = matches[0]
+                        verse_ref, verse_text = find_verse_after_subhead(row_num, verses)
+                        if verse_ref:
+                            results.append({
+                                'reference': verse_ref,
+                                'subhead': subhead_phrase,
+                                'original_xlsx_subhead': original_text
+                            })
+                            found = True
+                            break
+            
+            # Strategy 4: Try matching with original text (before cleaning)
+            if not found and subhead_phrase in subhead_original_map:
+                row_num = subhead_original_map[subhead_phrase]
+                verse_ref, verse_text = find_verse_after_subhead(row_num, verses)
+                if verse_ref:
+                    results.append({
+                        'reference': verse_ref,
+                        'subhead': subhead_phrase,
+                        'original_xlsx_subhead': subhead_phrase
+                    })
+                    found = True
+        
+        if not found:
+            not_found.append(subhead_phrase)
+    
+    return results, not_found
 
+def find_matching_files():
+    """Find ALL matching TXT and XLSX files in the current directory"""
+    files = os.listdir('.')
+    
+    # Find ALL TXT files that start with number pattern (e.g., "01-")
+    txt_files = [f for f in files if f.lower().endswith('.txt') and re.search(r'\d+', f)]
+    
+    # Find ALL XLSX files that start with number pattern
+    xlsx_files = [f for f in files if f.lower().endswith(('.xlsx', '.xls')) and re.search(r'\d+', f)]
+    
+    matches = []
+    
+    # Match files by their number prefix (e.g., "01-" from "01-Genesis.txt" and "01-Genesis.xlsx")
+    for txt_file in txt_files:
+        # Extract the number prefix from TXT filename
+        txt_number_match = re.search(r'(\d+)', txt_file)
+        if txt_number_match:
+            txt_number = txt_number_match.group(1)
+            
+            # Find matching XLSX file with same number
+            for xlsx_file in xlsx_files:
+                xlsx_number_match = re.search(r'(\d+)', xlsx_file)
+                if xlsx_number_match and xlsx_number_match.group(1) == txt_number:
+                    matches.append((txt_file, xlsx_file))
+                    break
+        else:
+            # If no number found, try to match by basename without extension
+            txt_base = os.path.splitext(txt_file)[0]
+            for xlsx_file in xlsx_files:
+                xlsx_base = os.path.splitext(xlsx_file)[0]
+                if txt_base in xlsx_base or xlsx_base in txt_base:
+                    matches.append((txt_file, xlsx_file))
+                    break
+    
+    # If no matches found by numbers, try simple extension-based matching
+    if not matches:
+        txt_files = [f for f in files if f.lower().endswith('.txt')]
+        xlsx_files = [f for f in files if f.lower().endswith(('.xlsx', '.xls'))]
+        if len(txt_files) == 1 and len(xlsx_files) == 1:
+            matches.append((txt_files[0], xlsx_files[0]))
+    
+    return matches
 
-def write_results_to_csv(results: List[Tuple[str, str]], output_path: str):
-    """Write results to tab-delimited CSV file with NOT_FOUND entries first."""
-    print(f"\nWriting results to: {output_path}")
+def process_single_pair(txt_file, xlsx_file):
+    """Process a single pair of files"""
+    print(f"Processing: {txt_file} with {xlsx_file}")
     
-    # Separate found and not found results
-    not_found = [result for result in results if result[0] == "NOT_FOUND"]
-    found = [result for result in results if result[0] != "NOT_FOUND"]
+    # Load data
+    subhead_phrases = load_txt_subheads(txt_file)
+    print(f"  Loaded {len(subhead_phrases)} subhead titles from TXT")
     
-    # Sort found results by reference (Genesis chapter:verse)
-    def extract_chapter_verse(ref: str) -> Tuple[int, int]:
-        """Extract chapter and verse numbers for sorting."""
-        try:
-            # Extract "1:2" from "Genesis 1:2"
-            parts = ref.replace("Genesis ", "").split(":")
-            return (int(parts[0]), int(parts[1]))
-        except:
-            return (999, 999)  # Put any parsing errors at the end
+    subheads, verses, chapters = extract_xlsx_structure(xlsx_file)
+    print(f"  Found {len(subheads)} subheads, {len(verses)} verses, and {len(chapters)} chapters in XLSX")
     
-    found.sort(key=lambda x: extract_chapter_verse(x[0]))
+    # Show samples for verification
+    print("  Sample subheads from TXT (with preserved apostrophes):")
+    for i, phrase in enumerate(subhead_phrases[:3], 1):
+        print(f"    {i}. '{phrase}'")
     
-    # Combine results with NOT_FOUND first
-    all_results = not_found + found
+    print("  Sample subheads from XLSX (with preserved apostrophes):")
+    for i, (cleaned_text, row_num, original_text) in enumerate(subheads[:3], 1):
+        print(f"    {i}. '{original_text}'")
     
-    try:
-        with open(output_path, 'w', encoding='utf-8') as f:
-            for reference, phrase in all_results:
-                f.write(f"{reference}\t{phrase}\n")
+    # Match subheads to verses
+    results, not_found = match_subheads_to_verses(subhead_phrases, subheads, verses)
+    print(f"  Results: {len(results)} matched, {len(not_found)} not found")
+    
+    # Create output filename (same as TXT file but with .csv extension)
+    output_file = os.path.splitext(txt_file)[0] + '.csv'
+    
+    # Write output
+    with open(output_file, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f, delimiter='\t')
         
-        print(f"Successfully wrote {len(all_results)} results")
-        print(f"  - {len(not_found)} NOT_FOUND entries")
-        print(f"  - {len(found)} matched entries")
+        # Unmatched items first
+        if not_found:
+            writer.writerow(["ERROR: Could not find verses for these subheads:"])
+            writer.writerow([])
+            for phrase in not_found:
+                writer.writerow([f"NOT_FOUND: {phrase}"])
+            writer.writerow([])
+            writer.writerow([])
         
-    except Exception as e:
-        print(f"Error writing output file: {e}")
-
+        # Matches
+        writer.writerow(["Reference", "Subhead"])
+        for result in results:
+            writer.writerow([result['reference'], result['subhead']])
+    
+    print(f"  Output saved to: {output_file}")
+    
+    # Show some examples
+    if results:
+        print("  First 3 matches:")
+        for result in results[:3]:
+            print(f"    {result['reference']} -> {result['subhead']}")
+    
+    # Debug: show some not found items
+    if not_found:
+        print("  Sample not found items:")
+        for phrase in not_found[:5]:
+            print(f"    NOT FOUND: '{phrase}'")
+    
+    return len(results), len(not_found)
 
 def main():
-    """Main function to orchestrate the verse finding process."""
-    print("=== Bible Verse Reference Finder ===\n")
+    print("=== Automated Bible Subhead to Verse Matcher ===")
+    print("Now processes ALL files, preserves apostrophes, and works with any book")
     
-    # File paths (modify these as needed)
-    excel_path = "CSB_GIFT_01-Genesis_all_spans.xlsx"
-    txt_path = "01-Genesis body - 479 (1).txt"
-    output_path = "output.csv"
+    # Find ALL matching file pairs
+    file_pairs = find_matching_files()
     
-    # Step 1: Reconstruct verses from Excel file
-    verses = reconstruct_verses_from_excel(excel_path)
-    if not verses:
-        print("Error: Could not reconstruct verses from Excel file")
+    if not file_pairs:
+        print("No matching files found.")
+        print("Looking for files with numbers in their names (e.g., '01-Genesis.txt', '02-Exodus.xlsx')")
+        print("Files in current directory:")
+        for f in os.listdir('.'):
+            print(f"  {f}")
         return
     
-    # Step 2: Load phrases from text file
-    phrases = load_phrases_from_txt(txt_path)
-    if not phrases:
-        print("Error: Could not load phrases from text file")
-        return
+    print(f"Found {len(file_pairs)} matching file pair(s):")
+    for txt, xlsx in file_pairs:
+        print(f"  {txt} -> {xlsx}")
     
-    # Step 3: Find matches
-    results = find_phrase_matches(phrases, verses)
+    print("\n" + "="*60)
     
-    # Step 4: Write results
-    write_results_to_csv(results, output_path)
+    total_matched = 0
+    total_not_found = 0
     
-    print(f"\n=== Process Complete ===")
-    print(f"Output saved to: {output_path}")
-
+    # Process each file pair
+    for txt_file, xlsx_file in file_pairs:
+        try:
+            matched, not_found = process_single_pair(txt_file, xlsx_file)
+            total_matched += matched
+            total_not_found += not_found
+            print()
+        except Exception as e:
+            print(f"Error processing {txt_file}: {e}")
+            import traceback
+            traceback.print_exc()
+            print()
+    
+    print("="*60)
+    print("Processing complete!")
+    print(f"Total across all files: {total_matched} matched, {total_not_found} not found")
 
 if __name__ == "__main__":
     main()

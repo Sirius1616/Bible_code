@@ -2,8 +2,8 @@ STANDARDS
 
 Acceptable X Coordiantes
 17.00
-198.5
-209.9
+298.5
+269.9
 28.3
 
 

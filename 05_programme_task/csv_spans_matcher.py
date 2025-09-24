@@ -90,39 +90,37 @@ def load_standards(standards_file):
 
 
 def check_location(x_coord, acceptable_coords, variance):
-    """Return YES if within acceptable ± variance, else ERROR"""
+    """Return YES if within acceptable ± variance, else MISALIGNED"""
     if not x_coord:
-        return "ERROR"
+        return "MISALIGNED"
     try:
         tup = ast.literal_eval(str(x_coord))
         first_val = float(tup[0]) if isinstance(tup, (tuple, list)) else None
     except Exception:
-        return "ERROR"
+        return "MISALIGNED"
 
     if first_val is None:
-        return "ERROR"
+        return "MISALIGNED"
 
     for c in acceptable_coords:
         if abs(first_val - c) <= variance:
             return "YES"
-    return "ERROR"
+    return "MISALIGNED"
 
 
 def match_subheads_with_spans(cleaned_file, span_file, output_file, standards_file):
-    """Match cleaned subheads with span contents from Excel, then check standards"""
+    """Match cleaned subheads with span contents from Excel, then check standards.
+       Rows with COULD NOT MATCH or MISALIGNED go to the top of the file."""
     spans_df = pd.read_excel(span_file)
     spans = spans_df.to_dict(orient="records")
 
     # Load standards once
     acceptable_coords, variance = load_standards(standards_file)
 
-    with open(cleaned_file, "r", newline="", encoding="utf-8") as infile, \
-         open(output_file, "w", newline="", encoding="utf-8") as outfile:
+    results = []
 
+    with open(cleaned_file, "r", newline="", encoding="utf-8") as infile:
         reader = csv.DictReader(infile)
-        fieldnames = ["Reference", "Subhead", "Match Status", "X-Coord", "Page", "Even/Odd", "Location"]
-        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
-        writer.writeheader()
 
         for row in reader:
             subhead = normalize_apostrophes(row["Subhead"])
@@ -146,7 +144,7 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file, standards_fi
                 x_coord = match.get("Span Position (bbox)", "")
                 location_status = check_location(x_coord, acceptable_coords, variance)
 
-                writer.writerow({
+                results.append({
                     "Reference": row["Reference"],
                     "Subhead": row["Subhead"],
                     "Match Status": "MATCH",
@@ -156,15 +154,31 @@ def match_subheads_with_spans(cleaned_file, span_file, output_file, standards_fi
                     "Location": location_status
                 })
             else:
-                writer.writerow({
+                results.append({
                     "Reference": row["Reference"],
                     "Subhead": row["Subhead"],
                     "Match Status": "COULD NOT MATCH",
                     "X-Coord": "",
                     "Page": "",
                     "Even/Odd": "",
-                    "Location": "ERROR"
+                    "Location": "MISALIGNED"
                 })
+
+    # Reorder: misaligned/error first
+    errors_first = [
+        r for r in results if r["Match Status"] == "COULD NOT MATCH" or r["Location"] == "MISALIGNED"
+    ]
+    matches_after = [
+        r for r in results if not (r["Match Status"] == "COULD NOT MATCH" or r["Location"] == "MISALIGNED")
+    ]
+    ordered_results = errors_first + matches_after
+
+    # Write output
+    with open(output_file, "w", newline="", encoding="utf-8") as outfile:
+        fieldnames = ["Reference", "Subhead", "Match Status", "X-Coord", "Page", "Even/Odd", "Location"]
+        writer = csv.DictWriter(outfile, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(ordered_results)
 
     print(f"✅ Matching + standards check done. Output saved as: {output_file}")
 
@@ -178,10 +192,11 @@ if __name__ == "__main__":
         print("❌ Standards.txt not found. Exiting.")
         exit(1)
 
+    # Look at first three characters (like 01-, 02-) instead of 'subhead'
     subhead_files = [
         f for f in files
         if f.endswith(".csv")
-        and "subhead" in f
+        and re.match(r"^\d{2}-", f)   # filename starts with NN-
         and not f.startswith("matched")
         and not f.endswith("_clean.csv")
     ]
@@ -190,7 +205,7 @@ if __name__ == "__main__":
         print("⚠️ No new raw subhead files found. Nothing to process.")
     else:
         for subhead_file in subhead_files:
-            prefix = subhead_file[:3]
+            prefix = subhead_file[:3]  # e.g., "01-"
             span_file_candidates = [f for f in files if f.startswith(prefix) and "_all_spans" in f]
 
             if not span_file_candidates:

@@ -109,6 +109,6 @@ for txt_file in txt_files:
             reordered_rows.append(row)
 
     # --- Save output ---
-    output_df = pd.DataFrame(reordered_rows, columns=['Reference', 'Body'])
+    output_df = pd.DataFrame(reordered_rows, columns=['Reference', 'Body']
     output_df.to_csv(output_file, index=False, encoding='utf-8')
     print(f"Processed {txt_file} → {output_file}")

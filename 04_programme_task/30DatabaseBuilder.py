@@ -1,313 +1,114 @@
 #!/usr/bin/env python
-# 30DatabaseBuilder.py
 
-import os
+import pandas as pd
 import re
-from openpyxl import load_workbook
-import csv
+from rapidfuzz import fuzz
+import glob
+import os
 
-def clean_text_content(text):
-    """Clean text while preserving apostrophes and quotation marks"""
-    if not text:
+# --- XLSX file path ---
+xlsx_file = "CSB_GIFT_01-Genesis_all_spans.xlsx"
+
+# --- Load XLSX file ---
+df = pd.read_excel(xlsx_file, engine='openpyxl')
+
+# --- Clean text function ---
+def clean_text(text):
+    if pd.isna(text):
         return ""
-    
-    # PRESERVE APOSTROPHES - don't remove them!
-    # Keep all types of apostrophes and quotes: ' \u2018 \u2019 \u0027 \u0060 \u00B4 \u02BC \u2032 \u055A \u05F3 \uFF07
-    # Only remove truly problematic characters
-    text = re.sub(r'[^\w\s\-–—:;,.!?()\'\u2018\u2019\u0027\u0060\u00B4\u02BC\u2032\u055A\u05F3\uFF07]', '', text)
-    # Normalize whitespace
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
+    text = re.sub(r'[\u200b\u00ad]', '', str(text))
+    text = text.replace('"', '"').replace('"', '"')
+    text = text.replace(''', "'").replace(''', "'")
+    text = text.replace('–', '-').replace('—', '-')
+    return text.strip()
 
-def normalize_apostrophes(text):
-    """Normalize all types of apostrophes to a standard form for matching"""
-    if not text:
-        return ""
-    
-    # Convert all apostrophe variants to standard ASCII apostrophe
-    apostrophe_variants = ['\u2018', '\u2019', '\u0027', '\u0060', '\u00B4', '\u02BC', '\u2032', '\u055A', '\u05F3', '\uFF07']
-    for variant in apostrophe_variants:
-        text = text.replace(variant, "'")
-    
-    return text
+# --- Reconstruct full verses with chapter ---
+verses = []
+current_chapter = None
+current_verse = None
+current_body = ""
 
-def remove_verse_number(phrase):
-    """Remove verse numbers from the beginning of phrases"""
-    # Remove numbers and any following space from the beginning
-    return re.sub(r'^\d+\s*', '', phrase).strip()
+for idx, row in df.iterrows():
+    category = str(row.get('Text Category', '')).upper()
+    content = clean_text(row.get('Span Content', ''))
 
-def load_txt_phrases(txt_file_path):
-    """Load verse phrases from TXT file, remove verse numbers, and clean them"""
-    with open(txt_file_path, 'r', encoding='utf-8') as file:
-        phrases = [line.strip() for line in file if line.strip()]
-        # Remove verse numbers and clean
-        return [clean_text_content(remove_verse_number(phrase)) for phrase in phrases]
+    if "CHAPTER NUMBERS" in category:
+        current_chapter = content
+        continue
 
-def extract_xlsx_structure(xlsx_file_path):
-    """
-    Extract the complete structure from XLSX file with proper text cleaning
-    """
-    wb = load_workbook(xlsx_file_path)
-    ws = wb.active
-    
-    verses = []    # (reference, verse_text, row_number)
-    chapters = []  # (chapter_number, row_number)
-    
-    # Extract book name from filename (more flexible matching)
-    filename = os.path.basename(xlsx_file_path)
-    # Look for book name pattern (number followed by text)
-    book_match = re.search(r'(?:^|\D)(\d+)[-\s]*([A-Za-z]+)', filename)
-    if book_match:
-        current_book = book_match.group(2)
-    else:
-        current_book = "Genesis"  # Default to Genesis
-    
-    current_chapter = "1"
-    current_verse = None
-    verse_text_parts = []
-    row_number = 0
-    
-    for row in ws.iter_rows(values_only=True):
-        row_number += 1
-        if not row or row[1] is None:
-            continue
-            
-        row_type = str(row[1])
-        content = str(row[2]) if len(row) > 2 and row[2] is not None else ""
-        
-        # CHAPTER DETECTION  
-        if "CHAPTER NUMBERS" in row_type and content.strip():
-            # Extract chapter number
-            chapter_match = ''.join(c for c in content if c.isdigit())
-            if chapter_match:
-                current_chapter = chapter_match
-                chapters.append((current_chapter, row_number))
-        
-        # VERSE NUMBER DETECTION
-        elif "VERSE NUMBERS" in row_type and content.strip():
-            # Save previous verse if exists
-            if current_verse is not None and verse_text_parts:
-                full_text = " ".join(verse_text_parts).strip()
-                if full_text:
-                    reference = f"{current_book} {current_chapter}:{current_verse}"
-                    verses.append((reference, full_text, row_number))
-            
-            # Start new verse
-            verse_match = ''.join(c for c in content if c.isdigit())
-            if verse_match:
-                current_verse = verse_match
-            verse_text_parts = []
-        
-        # VERSE TEXT DETECTION
-        elif "SCRIPTURE TEXT" in row_type and content and content not in ['""', '']:
-            clean_content = content.replace('"', '').replace('""', '').strip()
-            if clean_content:
-                verse_text_parts.append(clean_content)
-    
-    # Add the last verse
-    if current_verse is not None and verse_text_parts:
-        full_text = " ".join(verse_text_parts).strip()
-        if full_text:
-            reference = f"{current_book} {current_chapter}:{current_verse}"
-            verses.append((reference, full_text, row_number))
-    
-    return verses, chapters
+    if category in ["OTHER ELEMENTS", "BOOK TITLES", "SUBHEAD HEADINGS IN BIBLE TEXT"]:
+        continue
 
-def match_phrases_to_verses(phrases, verses):
-    """Match phrases to the verses that contain them"""
-    results = []
-    not_found = []
-    
-    # Create normalized versions of all verses for better matching
-    normalized_verses = []
-    for ref, text, row_num in verses:
-        normalized_text = normalize_apostrophes(text.lower())
-        normalized_verses.append((ref, text, normalized_text, row_num))
-    
-    for original_phrase in phrases:
-        cleaned_phrase = clean_text_content(original_phrase)
-        normalized_phrase = normalize_apostrophes(cleaned_phrase.lower())
+    if "VERSE NUMBERS" in category:
+        if current_verse is not None and current_body:
+            verses.append((current_chapter, current_verse, current_body.strip()))
+        current_verse = content
+        current_body = ""
+    elif "SCRIPTURE TEXT FONTS" in category:
+        current_body += " " + content
+
+# Append last verse
+if current_verse is not None and current_body:
+    verses.append((current_chapter, current_verse, current_body.strip()))
+
+# --- Process all TXT files in current folder ---
+txt_files = glob.glob("*.txt")
+
+for txt_file in txt_files:
+    output_file = txt_file.rsplit(".", 1)[0] + ".csv"
+
+    # Skip if CSV already exists
+    if os.path.exists(output_file):
+        print(f"Skipping {txt_file} because {output_file} already exists.")
+        continue
+
+    # --- Load TXT file ---
+    with open(txt_file, 'r', encoding='utf-8') as f:
+        txt_lines = [line.strip() for line in f if line.strip()]
+
+    # --- Match TXT fragments using fuzzy matching ---
+    output_rows = []
+    used_verses = set()  # Keep track of already matched verses
+
+    for line in txt_lines:
+        match_num = re.match(r'^(\d+)\s*(.*)', line)
+        if match_num:
+            txt_verse_num = match_num.group(1)
+            fragment_text = match_num.group(2).strip()
+        else:
+            txt_verse_num = None
+            fragment_text = line.strip()
+
         found = False
-        
-        # Try to find which verse contains this phrase
-        for ref, original_text, normalized_text, row_num in normalized_verses:
-            # Check if phrase is contained in the verse text (case-insensitive)
-            if normalized_phrase in normalized_text:
-                results.append({
-                    'reference': ref,
-                    'phrase': original_phrase,
-                    'verse_text': original_text
-                })
-                found = True
-                break
-        
-        # If not found, try fuzzy matching
-        if not found:
-            best_match = None
-            best_score = 0
-            
-            for ref, original_text, normalized_text, row_num in normalized_verses:
-                # Check for significant word overlap
-                phrase_words = set(normalized_phrase.split())
-                verse_words = set(normalized_text.split())
-                common_words = phrase_words.intersection(verse_words)
-                
-                if len(common_words) / max(len(phrase_words), 1) > 0.6:  # 60% match
-                    score = len(common_words) / len(phrase_words)
-                    if score > best_score:
-                        best_score = score
-                        best_match = (ref, original_text)
-            
-            if best_match and best_score > 0.6:
-                ref, original_text = best_match
-                results.append({
-                    'reference': ref,
-                    'phrase': original_phrase,
-                    'verse_text': original_text
-                })
-                found = True
-        
-        if not found:
-            not_found.append(original_phrase)
-    
-    return results, not_found
-
-def find_matching_files():
-    """Find ALL matching TXT and XLSX files in the current directory"""
-    files = os.listdir('.')
-    
-    # Find ALL TXT files that contain "body" in name
-    txt_files = [f for f in files if f.lower().endswith('.txt') and 'body' in f.lower()]
-    
-    # Find ALL XLSX files
-    xlsx_files = [f for f in files if f.lower().endswith(('.xlsx', '.xls'))]
-    
-    matches = []
-    
-    # Match files by their number prefix
-    for txt_file in txt_files:
-        # Extract the number prefix from TXT filename
-        txt_number_match = re.search(r'(\d+)', txt_file)
-        if txt_number_match:
-            txt_number = txt_number_match.group(1)
-            
-            # Find matching XLSX file with same number
-            for xlsx_file in xlsx_files:
-                xlsx_number_match = re.search(r'(\d+)', xlsx_file)
-                if xlsx_number_match and xlsx_number_match.group(1) == txt_number:
-                    matches.append((txt_file, xlsx_file))
+        for chap, verse, body in verses:
+            if (chap, verse) in used_verses:
+                continue
+            if txt_verse_num is not None and str(verse) == txt_verse_num:
+                score = fuzz.partial_ratio(fragment_text.lower(), body.lower())
+                if score >= 80:  # Threshold for approximate match
+                    output_rows.append([f"Genesis {chap}:{verse}", line])
+                    used_verses.add((chap, verse))
+                    found = True
                     break
-    
-    # If no matches found by numbers, try simple extension-based matching
-    if not matches:
-        if txt_files and xlsx_files:
-            matches.append((txt_files[0], xlsx_files[0]))
-    
-    return matches
 
-def process_single_pair(txt_file, xlsx_file):
-    """Process a single pair of files"""
-    print(f"Processing: {txt_file} with {xlsx_file}")
-    
-    # Load data
-    phrases = load_txt_phrases(txt_file)
-    print(f"  Loaded {len(phrases)} phrases from TXT (after removing verse numbers)")
-    
-    verses, chapters = extract_xlsx_structure(xlsx_file)
-    print(f"  Found {len(verses)} verses, and {len(chapters)} chapters in XLSX")
-    
-    # Show samples for verification
-    print("  Sample phrases from TXT (after cleaning):")
-    for i, phrase in enumerate(phrases[:3], 1):
-        print(f"    {i}. '{phrase}'")
-    
-    print("  Sample verses from XLSX:")
-    for i, (ref, text, row_num) in enumerate(verses[:3], 1):
-        print(f"    {i}. {ref}: '{text[:50]}...'")
-    
-    # Match phrases to verses
-    results, not_found = match_phrases_to_verses(phrases, verses)
-    print(f"  Results: {len(results)} matched, {len(not_found)} not found")
-    
-    # Create output filename (same as TXT file but with .csv extension)
-    output_file = os.path.splitext(txt_file)[0] + '.csv'
-    
-    # Write output
-    with open(output_file, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f, delimiter='\t')
-        
-        # Unmatched items first
-        if not_found:
-            writer.writerow(["ERROR: Could not find verses for these phrases:"])
-            writer.writerow([])
-            for phrase in not_found:
-                writer.writerow([f"NOT_FOUND: {phrase}"])
-            writer.writerow([])
-            writer.writerow([])
-        
-        # Matches
-        writer.writerow(["Reference", "Phrase"])
-        for result in results:
-            writer.writerow([result['reference'], result['phrase']])
-    
-    print(f"  Output saved to: {output_file}")
-    
-    # Show some examples
-    if results:
-        print("  First 3 matches:")
-        for result in results[:3]:
-            print(f"    {result['reference']} -> {result['phrase']}")
-    
-    # Debug: show some not found items
-    if not_found:
-        print("  Sample not found items:")
-        for phrase in not_found[:5]:
-            print(f"    NOT FOUND: '{phrase}'")
-    
-    return len(results), len(not_found)
+        if not found:
+            output_rows.append(["Not matched", line])
 
-def main():
-    print("=== Bible Phrase to Verse Matcher ===")
-    print("Finds the verse that contains each phrase")
+    # --- Reorder rows: "Not matched" first, then the rest in original order ---
+    # Create a list to store reordered rows
+    reordered_rows = []
     
-    # Find ALL matching file pairs
-    file_pairs = find_matching_files()
+    # First, add all "Not matched" rows
+    for row in output_rows:
+        if row[0] == "Not matched":
+            reordered_rows.append(row)
     
-    if not file_pairs:
-        print("No matching files found.")
-        print("Looking for files like:")
-        print("  - '01-Genesis body.txt'")
-        print("  - '01-Genesis.xlsx'")
-        print("Files in current directory:")
-        for f in os.listdir('.'):
-            print(f"  {f}")
-        return
-    
-    print(f"Found {len(file_pairs)} matching file pair(s):")
-    for txt, xlsx in file_pairs:
-        print(f"  {txt} -> {xlsx}")
-    
-    print("\n" + "="*60)
-    
-    total_matched = 0
-    total_not_found = 0
-    
-    # Process each file pair
-    for txt_file, xlsx_file in file_pairs:
-        try:
-            matched, not_found = process_single_pair(txt_file, xlsx_file)
-            total_matched += matched
-            total_not_found += not_found
-            print()
-        except Exception as e:
-            print(f"Error processing {txt_file}: {e}")
-            import traceback
-            traceback.print_exc()
-            print()
-    
-    print("="*60)
-    print("Processing complete!")
-    print(f"Total across all files: {total_matched} matched, {total_not_found} not found")
+    # Then, add all matched rows
+    for row in output_rows:
+        if row[0] != "Not matched":
+            reordered_rows.append(row)
 
-if __name__ == "__main__":
-    main()
+    # --- Save output ---
+    output_df = pd.DataFrame(reordered_rows, columns=['Reference', 'Body'])
+    output_df.to_csv(output_file, index=False, encoding='utf-8')
+    print(f"Processed {txt_file} → {output_file}")

@@ -101,7 +101,7 @@ for txt_file in txt_files:
     # First, add all "Not matched" rows
     for row in output_rows:
         if row[0] == "Not matched":
-            reordered_rows.append(row
+            reordered_rows.append(row)
     
     # Then, add all matched rows
     for row in output_rows:

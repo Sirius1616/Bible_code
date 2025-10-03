@@ -1,95 +1,77 @@
 #!/usr/bin/env python
-"""
-Produce one CSV per TXT file by matching each TXT line against
-'01-Genesis_filtered_verses.xlsx' (Reference, Verse Text).
-Matching rule: normalized Excel Verse Text startswith(normalized TXT line).
-Skips TXT files that already have a corresponding CSV.
-"""
 
 import pandas as pd
 import os
-from typing import Optional
 
-EXCEL_FILE = "01-Genesis_filtered_verses.xlsx"  # change if needed
-FOLDER = "."  # folder containing TXT and Excel files
-
-
-def normalize_text(text: Optional[str]) -> str:
-    """Normalize text for matching: strip and unify common curly quotes/apostrophes.
-    (Hyphens are left alone on purpose per client requirement.)
-    """
-    if text is None:
+def normalize_text(text: str) -> str:
+    """Normalize text for comparison (strip, unify quotes)."""
+    if not isinstance(text, str):
         return ""
-    s = str(text).strip()
-    s = s.replace("’", "'").replace("‘", "'")
-    s = s.replace("“", '"').replace("”", '"')
-    # collapse inner multiple spaces to single (optional but helpful)
-    s = " ".join(s.split())
-    return s
+    return (
+        text.strip()
+        .replace("’", "'")
+        .replace("‘", "'")
+        .replace("“", '"')
+        .replace("”", '"')
+    )
 
-
-def load_reference(excel_path: str) -> pd.DataFrame:
-    df = pd.read_excel(excel_path)
-    # ensure required columns exist
-    if "Reference" not in df.columns or "Verse Text" not in df.columns:
-        raise ValueError("Excel must contain 'Reference' and 'Verse Text' columns.")
-    # create a normalized column for startswith matching
+def process_txt_files(txt_folder: str, excel_file: str, output_folder: str):
+    # Load Excel file
+    df = pd.read_excel(excel_file)
     df["Normalized"] = df["Verse Text"].apply(normalize_text)
-    return df[["Reference", "Verse Text", "Normalized"]]
+
+    # Make sure output folder exists
+    os.makedirs(output_folder, exist_ok=True)
+
+    for txt_file in os.listdir(txt_folder):
+        if txt_file.endswith(".txt"):
+            results = []
+            txt_path = os.path.join(txt_folder, txt_file)
+
+            with open(txt_path, "r", encoding="utf-8") as f:
+                txt_lines = [normalize_text(line) for line in f if line.strip()]
+
+            for line in txt_lines:
+                # look for verse text that CONTAINS this line
+                matched_row = df[df["Normalized"].str.contains(line, na=False, regex=False)]
+
+                if not matched_row.empty:
+                    ref = matched_row.iloc[0]["Reference"]
+                    verse = matched_row.iloc[0]["Verse Text"]
+                    results.append({
+                        "TXT Line": line,
+                        "Match Status": "Matched",
+                        "Reference": ref,
+                        "Verse Text": verse
+                    })
+                else:
+                    results.append({
+                        "TXT Line": line,
+                        "Match Status": "Not Matched",
+                        "Reference": None,
+                        "Verse Text": None
+                    })
+
+            # Convert results into DataFrame
+            output_df = pd.DataFrame(results)
+
+            # Move Not Matched rows to the top
+            output_df = pd.concat([
+                output_df[output_df["Match Status"] == "Not Matched"],
+                output_df[output_df["Match Status"] == "Matched"]
+            ])
+
+            # Save results per txt file
+            output_name = os.path.splitext(txt_file)[0] + "_results.xlsx"
+            output_path = os.path.join(output_folder, output_name)
+            output_df.to_excel(output_path, index=False)
+
+            print(f"Results for {txt_file} saved to {output_path}")
 
 
-def process_one_txt(txt_path: str, df_ref: pd.DataFrame) -> pd.DataFrame:
-    """Return a DataFrame with columns ['Reference','Body','MatchedVerseText'] for this TXT file."""
-    with open(txt_path, "r", encoding="utf-8") as fh:
-        raw_lines = [line.rstrip("\n") for line in fh if line.strip()]
-
-    results = []
-    for raw in raw_lines:
-        norm = normalize_text(raw)
-        if norm == "":
-            # preserve empty lines as Not matched (optional)
-            results.append(("Not matched", raw, None))
-            continue
-
-        # find first verse whose normalized text starts with the normalized txt line
-        matches = df_ref[df_ref["Normalized"].str.startswith(norm, na=False)]
-        if not matches.empty:
-            first = matches.iloc[0]
-            results.append((first["Reference"], raw, first["Verse Text"]))
-        else:
-            results.append(("Not matched", raw, None))
-
-    # Move "Not matched" rows to the top while preserving order otherwise
-    not_matched = [r for r in results if r[0] == "Not matched"]
-    matched = [r for r in results if r[0] != "Not matched"]
-    ordered = not_matched + matched
-
-    out_df = pd.DataFrame(ordered, columns=["Reference", "Body", "MatchedVerseText"])
-    return out_df
-
-
-def main():
-    df_ref = load_reference(EXCEL_FILE)
-    txt_files = [f for f in os.listdir(FOLDER) if f.lower().endswith(".txt")]
-
-    if not txt_files:
-        print("No .txt files found in folder.")
-        return
-
-    for txt in txt_files:
-        csv_name = os.path.splitext(txt)[0] + ".csv"
-        if os.path.exists(csv_name):
-            print(f"Skipping {txt} → {csv_name} already exists.")
-            continue
-
-        print(f"Processing {txt} ...")
-        out_df = process_one_txt(txt, df_ref)
-        # save CSV with Body as original TXT line (and the reference)
-        out_df.to_csv(csv_name, index=False, encoding="utf-8")
-        print(f"Wrote {csv_name} ({len(out_df)} rows)")
-
-    print("Done.")
-
-
-if __name__ == "__main__":
-    main()
+# Example usage
+process_txt_files(
+    txt_folder=".",  
+    excel_file="01-Genesis_filtered_verses.xlsx",
+    output_folder="results"
+)

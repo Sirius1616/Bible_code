@@ -15,13 +15,10 @@ def normalize_text(text: str) -> str:
         .replace("”", '"')
     )
 
-def process_txt_files(txt_folder: str, excel_file: str, output_folder: str):
+def process_txt_files(txt_folder: str, excel_file: str):
     # Load Excel file
     df = pd.read_excel(excel_file)
     df["Normalized"] = df["Verse Text"].apply(normalize_text)
-
-    # Make sure output folder exists
-    os.makedirs(output_folder, exist_ok=True)
 
     for txt_file in os.listdir(txt_folder):
         if txt_file.endswith(".txt"):
@@ -61,9 +58,9 @@ def process_txt_files(txt_folder: str, excel_file: str, output_folder: str):
                 output_df[output_df["Match Status"] == "Matched"]
             ])
 
-            # Save results per txt file
+            # Save results in the same folder as input TXT files
             output_name = os.path.splitext(txt_file)[0] + "_results.xlsx"
-            output_path = os.path.join(output_folder, output_name)
+            output_path = os.path.join(txt_folder, output_name)
             output_df.to_excel(output_path, index=False)
 
             print(f"Results for {txt_file} saved to {output_path}")
@@ -72,6 +69,5 @@ def process_txt_files(txt_folder: str, excel_file: str, output_folder: str):
 # Example usage
 process_txt_files(
     txt_folder=".",  
-    excel_file="01-Genesis_filtered_verses.xlsx",
-    output_folder="results"
+    excel_file="01-Genesis_filtered_verses.xlsx"
 )
